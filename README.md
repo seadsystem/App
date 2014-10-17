@@ -9,7 +9,3 @@ Members
 + Brittany Arthur - bharthur@ucsc.edu
 + Kevin Stewart - krstewar@ucsc.edu
 + Cassandra Gordon - caagordo@ucsc.edu
-
-
-
-+Test
