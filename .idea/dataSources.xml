@@ -4,7 +4,7 @@
     <data-source source="LOCAL" name="Django default" uuid="188cd02d-5af8-40e8-8b5e-33da745d92c3">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Apha/db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Cassie\Documents\python pycharm\App\Apha\db.sqlite3</jdbc-url>
       <libraries />
     </data-source>
   </component>
