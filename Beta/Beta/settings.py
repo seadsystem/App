@@ -7,10 +7,17 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-
+from __future__ import unicode_literals
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+BOOTSTRAP3_FOLDER = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'bootstrap3'))
+if BOOTSTRAP3_FOLDER not in sys.path:
+    sys.path.insert(0, BOOTSTRAP3_FOLDER)
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'SEADS',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -46,6 +55,18 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 ROOT_URLCONF = 'Beta.urls'
@@ -81,3 +102,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+BOOTSTRAP3 = {
+    'set_required': False,
+    'error_css_class': 'bootstrap3-error',
+    'required_css_class': 'bootstrap3-required',
+    'javascript_in_head': True,
+}
