@@ -11,13 +11,16 @@ class IndexView(TemplateView):
 
 
 def VisualizationView(request):
-	fake_data = [
-          ['Time', 'KW/H', 'Temp'],
-          ['1',  50,      70],
-          ['2',  60,      77],
-          ['3',  80,      82],
-          ['4',  50,      76],
-          ['5',  50,      70]
-        ]
+  devices = [1,2,3,4,5]
+  fake_data = -1
+  if(request.POST.get('all1')):
+    fake_data = [
+    ['Time', 'KW/H', 'Temp'],
+    ['1',  50,      70],
+    ['2',  60,      77],
+    ['3',  80,      82],
+    ['4',  50,      76],
+    ['5',  50,      70]
+    ]
 
-	return render(request, 'visualization.html', {'data':fake_data})
+  return render(request, 'visualization.html', {'data':fake_data, 'devices':devices})
