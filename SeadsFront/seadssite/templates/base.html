@@ -34,7 +34,7 @@
         {% if user.is_anonymous %}
         <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='{%url 'django.contrib.auth.views.login' %}'">
         Sign In</button></li>
-        <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location =''">
+        <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='/register/'">
         Register</button></li>
         {% else %}
         <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='{%url 'django.contrib.auth.views.logout' %}'">
