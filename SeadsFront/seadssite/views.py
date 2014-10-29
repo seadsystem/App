@@ -14,8 +14,6 @@ class IndexView(TemplateView):
 def DevicesView(request):
   current_user = request.user
   devices = Map
-
-
   return render(request, 'devices.html', {'devices': devices})
 
 '''
@@ -99,3 +97,4 @@ def VisualizationView(request):
     ]
 
   return render(request, 'visualization.html', {'data':fake_data})
+
