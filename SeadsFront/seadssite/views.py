@@ -15,7 +15,6 @@ def DevicesView(request):
   current_user = request.user
   user_devices = Map.objects.filter(user_id=current_user.id)
 
-
   return render(request, 'devices.html', {'devices': user_devices})
 
 '''
@@ -99,3 +98,4 @@ def VisualizationView(request):
     ]
 
   return render(request, 'visualization.html', {'data':fake_data})
+
