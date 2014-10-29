@@ -5,14 +5,16 @@ from django.views.generic import View
 from django.views.generic import CreateView
 from django.views.generic.base import TemplateView
 from .models import Devices
-from .models import UserDevice
+from .models import Map
 
 # Create your views here.
 class IndexView(TemplateView):
 	template_name = 'index.html'
 
 def DevicesView(request):
-  devices = Devices.objects.all()
+  current_user = request.user
+  devices = Map
+
 
   return render(request, 'devices.html', {'devices': devices})
 
