@@ -22,7 +22,7 @@ class Map(models.Model):
 	device_id = models.ForeignKey(Devices)
 
 	def __str__(self):
-		return "User: {} | Owns: {}".format(self.user_id,self.device_id.device_id)
+		return "{}".format(self.device_id.device_id)
 	
 	#url = models.URLField()
 	#views = models.IntegerField(default=0) how to associate this with the list of Devices
