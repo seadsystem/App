@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 
 class Devices(models.Model):
 	DeviceId = models.IntegerField()
+
+	def get_id(self):
+		return self.DeviceId
 	#MetaData
 	#url = models.URLField()
 	#views = models.IntegerField(default=0) how to associate this with the list of Devices
