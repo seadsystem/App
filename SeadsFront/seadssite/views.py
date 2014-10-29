@@ -13,10 +13,10 @@ class IndexView(TemplateView):
 
 def DevicesView(request):
   current_user = request.user
-  devices = Map.objects.filter(user_id=current_user.id)
+  user_devices = Map.objects.filter(user_id=current_user.id)
 
 
-  return render(request, 'devices.html', {'devices': devices})
+  return render(request, 'devices.html', {'devices': user_devices})
 
 '''
 workflow:

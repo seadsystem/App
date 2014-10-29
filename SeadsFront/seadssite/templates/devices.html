@@ -3,7 +3,7 @@
 {% block content %}
 
 {% for device in devices %}
-<p>Device ID: {{device}}</p>
+<p>Device ID: {{device.get_id}}</p>
 {% endfor %}
 
 
