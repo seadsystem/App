@@ -13,7 +13,47 @@ class IndexView(TemplateView):
 def VisualizationView(request):
   devices = [1,2,3,4,5]
   fake_data = -1
-  if(request.POST.get('all1')):
+  if(request.POST.get('all')):
+    fake_data = [
+    ['Time', 'KW/H', 'Temp'],
+    ['1',  50,      70],
+    ['2',  60,      77],
+    ['3',  80,      82],
+    ['4',  50,      76],
+    ['5',  50,      70],
+    ['6',  50,      70],
+    ['7',  60,      77],
+    ['8',  80,      82],
+    ['9',  50,      76],
+    ['10',  50,      70],
+    ['11',  50,      70],
+    ['12',  60,      77],
+    ['13',  80,      82],
+    ['14',  50,      76],
+    ['15',  50,      70],
+    ['16',  50,      70],
+    ['17',  60,      77],
+    ['18',  80,      82],
+    ['19',  50,      76],
+    ['20',  50,      70]
+    ]
+
+  elif(request.POST.get('month')):
+    fake_data = [
+    ['Time', 'KW/H', 'Temp'],
+    ['1',  50,      70],
+    ['2',  60,      77],
+    ['3',  80,      82],
+    ['4',  50,      76],
+    ['5',  50,      70],
+    ['6',  50,      70],
+    ['7',  60,      77],
+    ['8',  80,      82],
+    ['9',  50,      76],
+    ['10',  50,      70]
+    ]
+
+  elif(request.POST.get('week')):
     fake_data = [
     ['Time', 'KW/H', 'Temp'],
     ['1',  50,      70],
@@ -23,4 +63,4 @@ def VisualizationView(request):
     ['5',  50,      70]
     ]
 
-  return render(request, 'visualization.html', {'data':fake_data, 'devices':devices})
+  return render(request, 'visualization.html', {'data':fake_data})
