@@ -1,7 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Devices(models.Model):
 	user_id = models.CharField(max_length=200, default='DEFAULT USERID')
@@ -30,4 +30,18 @@ class Map(models.Model):
 	#url = models.URLField()
 	#views = models.IntegerField(default=0) how to associate this with the list of Devices
 	#Ali wants on main page
+
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User)
+
+    # The additional attributes we wish to include.
+    firstName = models.CharField(max_length=50, default='First Name')
+    lastName = models.CharField(max_length=50, default='Last Name')
+    phone = models.CharField(max_length=10)
+    cellProvider = models.CharField(max_length=20)
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __unicode__(self):
+        return self.user.username
 
