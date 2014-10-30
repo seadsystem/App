@@ -22,7 +22,13 @@
     
    <div class="navbar-collapse collapse navbar-left">
       <ul class="nav navbar-nav">
+         {% if user.is_anonymous %}
+         {% else %}
          <li><a class="navbar-left" href=""><span class="glyphicon glyphicon-dashboard"></span> <b>Dashboard</b></a></li>
+         <li><a class="navbar-left" href="visualization/"><span class="glyphicon"></span> <b>Graphs</b></a></li>
+         <li><a class="navbar-left" href=""><span class="glyphicon"></span> <b>Devices</b></a></li>
+         <li><a class="navbar-left" href=""><span class="glyphicon"></span> <b>Settings</b></a></li>
+         {% endif %}
       </ul>
    </div>
    
@@ -40,7 +46,6 @@
         <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='{%url 'django.contrib.auth.views.logout' %}'">
         Logout</button></li>
         {% endif %}
-
       </ul>
   </div>
 </div>
