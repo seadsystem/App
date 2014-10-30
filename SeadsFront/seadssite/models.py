@@ -4,13 +4,19 @@ from django.contrib.auth.models import User
 
 
 class Devices(models.Model):
-	user_id = models.CharField(max_length=200, default='DEFAULT USERID')
+	#user_id = models.CharField(max_length=200, default='DEFAULT USERID')
 	device_id = models.IntegerField()
 	device_name = models.CharField(max_length=200, default='DEFAULT VALUE')
 	device_connectionstatus = models.BooleanField(default=False)
 	device_powerstatus = models.BooleanField(default=False)
 	def get_id(self):
-		return self.DeviceId
+		return self.device_id
+
+	def rename(self, name):
+		self.device_name = name
+
+	def get_name(self):
+		return "{}".format(self.device_name)
 	#MetaData
 	#url = models.URLField()
 	#views = models.IntegerField(default=0) how to associate this with the list of Devices
@@ -26,6 +32,9 @@ class Map(models.Model):
 
 	def get_id(self):
 		return self.device_id.device_id
+
+	def set_id(self, device_id):
+		self.device_id = device_id
 	
 	#url = models.URLField()
 	#views = models.IntegerField(default=0) how to associate this with the list of Devices
