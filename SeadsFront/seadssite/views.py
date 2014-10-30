@@ -11,6 +11,11 @@ from .models import Map
 class IndexView(TemplateView):
 	template_name = 'index.html'
 
+def DashboardView(request):
+    current_user = request.user
+    devices = Map.objects.filter(user_id=current_user.id)
+    return render(request, 'dashboard.html', {'devices': devices})
+
 def DevicesView(request):
   current_user = request.user
   devices = Map.objects.filter(user_id=current_user.id)

@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', v.IndexView.as_view()),
+    url(r'^dashboard/',v.DashboardView),
     url(r'^visualization/', v.VisualizationView),
     url(r'^devices/', v.DevicesView),
     url(r'^login/$', 'django.contrib.auth.views.login'),

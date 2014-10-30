@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+{% for device in devices %}
+<h> DASHBOARD PAGE </h>
+<p>Device ID: {{device}}</p>
+{% endfor %}
+
+
+{% endblock %}
