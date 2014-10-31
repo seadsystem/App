@@ -75,12 +75,12 @@ def register(request):
             context)
 
 def DashboardView(request):
+    device_set = []
+    device_id = 0
     #get current user instance of Users model
     current_user = request.user
     #get devices current user owns via Map model
     user_devices = Map.objects.filter(user_id=current_user.id)
-    #set dummy device id for render
-    device_id = 0
     #if user hits "register"
     if(request.POST.get('register')):
         #get id they put in
@@ -90,7 +90,7 @@ def DashboardView(request):
         #new_device_connection = False
         #new_device_power = False
         #create a new device and save it to the DB
-        D = Devices(device_id=new_device_id, device_name=new_device_name)
+        D = Devices(device_id=new_device_id, name=new_device_name)
         D.save() 
         #create a new Map from the current user to the new device      
         Map(user = current_user, device = D).save()
@@ -110,7 +110,6 @@ def DevicesView(request):
     user_devices = Map.objects.filter(user_id=current_user.id)
     for d in user_devices:
         device_set.append(d.get_device())
-
     if(request.POST.get('register')):
         #get id they put in
         new_device_id = request.POST.get('device_id')
@@ -119,7 +118,7 @@ def DevicesView(request):
         #new_device_connection = False
         #new_device_power = False
         #create a new device and save it to the DB
-        D = Devices(device_id=new_device_id, device_name=new_device_name)
+        D = Devices(device_id=new_device_id, name=new_device_name)
         D.save() 
         #create a new Map from the current user to the new device      
         Map(user = current_user, device = D).save()
