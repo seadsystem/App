@@ -24,17 +24,17 @@ class Devices(models.Model):
 
 
 class Map(models.Model):
-	user_id = models.ForeignKey(User) #how to get User Id from User sign-in auth
-	device_id = models.ForeignKey(Devices)
+	user = models.ForeignKey(User) #how to get User Id from User sign-in auth
+	device = models.ForeignKey(Devices)
 
 	def __str__(self):
-		return "User: {} | Owns: {}".format(self.user_id,self.device_id.device_id)
+		return "User: {} | Owns: {}".format(self.user,self.device.device_id)
 
 	def get_id(self):
-		return self.device_id.device_id
+		return self.device.device_id
 
-	def set_id(self, device_id):
-		self.device_id = device_id
+	def set_id(self, device):
+		self.device = device
 	
 	#url = models.URLField()
 	#views = models.IntegerField(default=0) how to associate this with the list of Devices
