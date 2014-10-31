@@ -126,8 +126,8 @@ def DevicesView(request):
             Map(user = current_user, device = D).save()
         except ValueError:
             print 'Invalid Device ID!'
-        except IntegrityError:
-            print 'Invalid Device ID!'
+        # except IntegrityError:
+        #     print 'Invalid Device ID!'
        #if user hits "delete" button    
     elif(request.POST.get('delete')):
         #get id of value to delete
