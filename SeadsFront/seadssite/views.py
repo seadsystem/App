@@ -74,10 +74,14 @@ def register(request):
             context)
 
 def DevicesView(request):
-  current_user = request.user
-  user_devices = Map.objects.filter(user_id=current_user.id)
+    current_user = request.user
+    user_devices = Map.objects.filter(user_id=current_user.id)
+    device_id = 0
 
-  return render(request, 'devices.html', {'devices': user_devices})
+    if(request.POST.get('register')):
+        device_id = request.POST.get('device_id')
+
+    return render(request, 'devices.html', {'devices': user_devices, 'device_id': device_id})
 
 '''
 workflow:
