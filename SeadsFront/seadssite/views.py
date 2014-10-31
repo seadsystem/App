@@ -75,13 +75,13 @@ def register(request):
             context)
 
 def DevicesView(request):
-    #get current user instance of Users model
-    current_user = request.user
-    #get devices current user owns via Map model
-    user_devices = Map.objects.filter(user_id=current_user.id)
-    #set dummy device id for render
+    device_set = []
     device_id = 0
-    #if user hits "register"
+    current_user = request.user
+    user_devices = Map.objects.filter(user_id=current_user.id)
+    for d in user_devices:
+        device_set.append(d.get_device())
+
     if(request.POST.get('register')):
         #get id they put in
         new_device = request.POST.get('device_id')
@@ -97,7 +97,7 @@ def DevicesView(request):
         #delete it
         Devices.objects.filter(device_id = device_id).delete()
 
-    return render(request, 'devices.html', {'devices': user_devices, 'device_id': device_id})
+    return render(request, 'devices.html', {'devices': device_set, 'device_id': device_id})
 
 '''
 workflow:
