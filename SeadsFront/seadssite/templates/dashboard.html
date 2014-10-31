@@ -24,7 +24,9 @@
 	<td>{{device.device.device_powerstatus}}</td>
 	<td><form method="post">
 		{% csrf_token %}
-		<button type="submit" class="btn glyphicon glyphicon-remove" value={{device.get_id}} name="delete"></button>
+		<button type="submit" class="btn glyphicon glyphicon-remove" value={{device.get_id}} name="delete">
+           <span class="glyphicon glyphicon-trash"></span>
+		</button>
 		</form>
 	</td>
     <!--<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
