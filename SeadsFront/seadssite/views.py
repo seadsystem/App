@@ -119,11 +119,16 @@ def DevicesView(request):
         #new_device_connection = False
         #new_device_power = False
         #create a new device and save it to the DB
-        D = Devices(device_id=new_device_id, name=new_device_name)
-        D.save() 
         #create a new Map from the current user to the new device      
-        Map(user = current_user, device = D).save()
-    #if user hits "delete" button    
+        try:
+            D = Devices(device_id=new_device_id, device_name=new_device_name)
+            D.save() 
+            Map(user = current_user, device = D).save()
+        except ValueError:
+            print 'Invalid Device ID!'
+        except IntegrityError:
+            print 'Invalid Device ID!'
+       #if user hits "delete" button    
     elif(request.POST.get('delete')):
         #get id of value to delete
         device_id = request.POST.get('delete')
