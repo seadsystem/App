@@ -90,10 +90,15 @@ def DashboardView(request):
         #new_device_connection = False
         #new_device_power = False
         #create a new device and save it to the DB
-        D = Devices(device_id=new_device_id, name=new_device_name)
-        D.save() 
+        try:
+            D = Devices(device_id=new_device_id, name=new_device_name)
+            D.save() 
         #create a new Map from the current user to the new device      
-        Map(user = current_user, device = D).save()
+            Map(user = current_user, device = D).save()
+        except ValueError:
+            print "Invalid Device ID"
+        except TypeError:
+            print "Invalid Device ID"
     #if user hits "delete" button    
     elif(request.POST.get('delete')):
         #get id of value to delete
@@ -104,38 +109,39 @@ def DashboardView(request):
 
     return render(request, 'dashboard.html', {'devices': user_devices, 'device_id': device_id})
 
-def DevicesView(request):
-    device_set = []
-    device_id = 0
-    current_user = request.user
-    user_devices = Map.objects.filter(user_id=current_user.id)
-    for d in user_devices:
-        device_set.append(d.get_device())
-    if(request.POST.get('register')):
-        #get id they put in
-        new_device_id = request.POST.get('device_id')
-        new_device_name = request.POST.get('device_name')
-        #these need to have API calls to ask the DB about device status
-        #new_device_connection = False
-        #new_device_power = False
-        #create a new device and save it to the DB
-        #create a new Map from the current user to the new device      
-        try:
-            D = Devices(device_id=new_device_id, device_name=new_device_name)
-            D.save() 
-            Map(user = current_user, device = D).save()
-        except ValueError:
-            print 'Invalid Device ID!'
-        except TypeError:
-            print 'Invalid Device ID!'
-       #if user hits "delete" button    
-    elif(request.POST.get('delete')):
-        #get id of value to delete
-        device_id = request.POST.get('delete')
-        #delete it
-        Devices.objects.filter(device_id = device_id).delete()
+# NOTE: Rita Commented out in case we need it for something else.
+# def DevicesView(request):
+#     device_set = []
+#     device_id = 0
+#     current_user = request.user
+#     user_devices = Map.objects.filter(user_id=current_user.id)
+#     for d in user_devices:
+#         device_set.append(d.get_device())
+#     if(request.POST.get('register')):
+#         #get id they put in
+#         new_device_id = request.POST.get('device_id')
+#         new_device_name = request.POST.get('device_name')
+#         #these need to have API calls to ask the DB about device status
+#         #new_device_connection = False
+#         #new_device_power = False
+#         #create a new device and save it to the DB
+#         #create a new Map from the current user to the new device      
+#         try:
+#             D = Devices(device_id=new_device_id, device_name=new_device_name)
+#             D.save() 
+#             Map(user = current_user, device = D).save()
+#         except ValueError:
+#             print 'Invalid Device ID!'
+#         except TypeError:
+#             print 'Invalid Device ID!'
+#        #if user hits "delete" button    
+#     elif(request.POST.get('delete')):
+#         #get id of value to delete
+#         device_id = request.POST.get('delete')
+#         #delete it
+#         Devices.objects.filter(device_id = device_id).delete()
 
-    return render(request, 'devices.html', {'devices': device_set, 'device_id': device_id})
+#     return render(request, 'devices.html', {'devices': device_set, 'device_id': device_id})
 
 '''
 workflow:
