@@ -3,8 +3,45 @@
 {% block content %}
 
 {% for device in devices %}
-<p>Device ID: {{device}}</p>
+<div class="row">
+  <div class="col-xs-6 text-center">Device ID: {{device.get_id}}</div>
+  <div class="col-xs-6">
+  <form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn glyphicon glyphicon-remove" value={{device.get_id}} name="delete"></button>
+  </form>
+  </div>
+</div>
 {% endfor %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#register_modal">
+  Register Device
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="register_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Register your new SEADS device</h4>
+      </div>
+      <div class="modal-body">
+		<form method="post">
+ 		{% csrf_token %}
+ 		<div class="row">
+		<div class="col-lg-6">
+    	<div class="input-group">
+      	<input type="text" name="device_id" value="" class="form-control">
+      	<span class="input-group-btn">
+        <button class="btn btn-default" type="submit" value=1 name="register">Register!</button>
+      	</span>
+    	</div><!-- /input-group -->
+  		</div>
+  		</div>
+		</form>
+      </div>
+     </div>
+    </div>
 
 {% endblock %}

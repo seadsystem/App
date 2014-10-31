@@ -40,7 +40,7 @@
         {% if user.is_anonymous %}
         <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='{%url 'django.contrib.auth.views.login' %}'">
         Sign In</button></li>
-        <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location =''">
+        <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='/register/'">
         Register</button></li>
         {% else %}
         <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='{%url 'django.contrib.auth.views.logout' %}'">
@@ -56,6 +56,10 @@
   <body>
     {% block content %}
     {% endblock %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src={% static "js/bootstrap.min.js" %}></script>
 
   </body>
 </html>

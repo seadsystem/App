@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     url(r'^devices/', v.DevicesView),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     (r'^logout/$', 'django.contrib.auth.views.logout',
-    	{'next_page': '/'})
+    	{'next_page': '/'}),
+    url(r'^register/$', v.register),
 )
 
 urlpatterns += staticfiles_urlpatterns()
