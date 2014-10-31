@@ -1,86 +1,102 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-<br/>
-
 
 
 <div class="col-md-12">
-<div class="table-responsive">
-<table class="table table-hover table table-bordered">
-  <thead>
-	<th>Device ID</th>
-	<th>Device Name</th>
-	<th>Connection Status</th>
-	<th>Power Status</th>
-	<th>Delete</th>
-</thead>
-<tbody>
-{% for device in devices%}
-<tr>
-	<td>{{device.get_device.get_id}}</td>
-	<td>{{device.get_device.get_name}}</td>
-	<td>{{device.get_device.get_connection}}</td>
-	<td>{{device.get_device.get_power}}</td>
-	<td><form method="post">
-		{% csrf_token %}
-		<button type="submit" class="btn glyphicon glyphicon-remove" value={{device.get_id}} name="delete"> <!--value=device.get_id}} -->
-           <span class="glyphicon glyphicon-trash"></span>
+	<div class="table-responsive">
+		<table class="table table-hover table table-bordered">
+			<thead>
+				<th>Device ID</th>
+				<th>Device Name</th>
+				<th>Connection Status</th>
+				<th>Power Status</th>
+				<th>Opperations</th>
+			</thead>
+			<tbody>
+				{% for device in devices%}
+				<tr>
+					<td>{{device.get_device.get_id}}</td>
+					<td>{{device.get_device.get_name}}</td>
+					<td>{{device.get_device.get_connection}}</td>
+					<td>{{device.get_device.get_power}}</td>
+					<td>
+					<button class="btn" id="popover"><span class="glyphicon glyphicon-pencil"></span></button>
+						<div id="popover-head" class="hide">Edit</div>
+						<div id="popover-content" class="hide">
+							<form>
+								<!-- my form -->
+							</form>
+						</div>
+						<form method="post">
+							{% csrf_token %}
+							<button type="submit" class="btn" value={{device.get_id}} name="delete"><span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#register_modal">
+			Register Device
 		</button>
-		</form>
-	</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#register_modal">
-  Register Device
-</button>
-
-</div>
+	</div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="register_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Register your new SEADS device</h4>
-      </div>
-      <div class="modal-body">
-		<form method="post">
- 		{% csrf_token %}
- 		<div class="row">
-		<div class="col-lg-6">
-    	<div class="input-group">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">Register your new SEADS device</h4>
+			</div>
+			<div class="modal-body">
+				<form method="post">
+					{% csrf_token %}
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="input-group">
 
-        <div class="form-group">
-           <label>Device ID</label>
-           <input type="text" name="device_id" class="form-control" placeholder="ID">
-        </div>
-       <div class="form-group">
-           <label>Device Name</label>
-           <input type="text" name="device_name" class="form-control" placeholder="Device Name">
-       </div>
-       <button class="btn btn-default" type="submit" value=1 name="register">Register!</button>
+								<div class="form-group">
+									<label>Device ID</label>
+									<input type="text" name="device_id" class="form-control" placeholder="ID">
+								</div>
+								<div class="form-group">
+									<label>Device Name</label>
+									<input type="text" name="device_name" class="form-control" placeholder="Device Name">
+								</div>
+								<button class="btn btn-default" type="submit" value=1 name="register">Register!</button>
 
       <!--	<input type="text" name="device_id" value="" class="form-control">
       	<span class="input-group-btn">
         <button class="btn btn-default" type="submit" value=1 name="register">Register!</button>
-      	</span> -->
+    </span> -->
 
-    	</div><!-- /input-group -->
-  		</div>
-  		</div>
-		</form>
-      </div>
-     </div>
-    </div>
-
-
-
+</div><!-- /input-group -->
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}
+
+<script>
+$('#popover').popover({ 
+    html : true,
+    title: function() {
+      return $("#popover-head").html();
+    },
+    content: function() {
+      return $("#popover-content").html();
+    }
+});
+</script>
+
 

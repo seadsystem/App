@@ -101,6 +101,7 @@ def DashboardView(request):
         #delete it
         Devices.objects.filter(device_id = device_id).delete()
 
+
     return render(request, 'dashboard.html', {'devices': user_devices, 'device_id': device_id})
 
 def DevicesView(request):
