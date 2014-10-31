@@ -75,9 +75,33 @@ def register(request):
             context)
 
 def DashboardView(request):
+    #get current user instance of Users model
     current_user = request.user
-    devices = Map.objects.filter(user_id=current_user.id)
-    return render(request, 'dashboard.html', {'devices': devices})
+    #get devices current user owns via Map model
+    user_devices = Map.objects.filter(user_id=current_user.id)
+    #set dummy device id for render
+    device_id = 0
+    #if user hits "register"
+    if(request.POST.get('register')):
+        #get id they put in
+        new_device_id = request.POST.get('device_id')
+        new_device_name = request.POST.get('device_name')
+        #these need to have API calls to ask the DB about device status
+        #new_device_connection = False
+        #new_device_power = False
+        #create a new device and save it to the DB
+        D = Devices(device_id=new_device_id, device_name=new_device_name)
+        D.save() 
+        #create a new Map from the current user to the new device      
+        Map(user = current_user, device = D).save()
+    #if user hits "delete" button    
+    elif(request.POST.get('delete')):
+        #get id of value to delete
+        device_id = request.POST.get('delete')
+        #delete it
+        Devices.objects.filter(device_id = device_id).delete()
+
+    return render(request, 'dashboard.html', {'devices': user_devices, 'device_id': device_id})
 
 def DevicesView(request):
     #get current user instance of Users model
@@ -89,9 +113,13 @@ def DevicesView(request):
     #if user hits "register"
     if(request.POST.get('register')):
         #get id they put in
-        new_device = request.POST.get('device_id')
+        new_device_id = request.POST.get('device_id')
+        new_device_name = request.POST.get('device_name')
+        #these need to have API calls to ask the DB about device status
+        #new_device_connection = False
+        #new_device_power = False
         #create a new device and save it to the DB
-        D = Devices(device_id=new_device)
+        D = Devices(device_id=new_device_id, device_name=new_device_name)
         D.save() 
         #create a new Map from the current user to the new device      
         Map(user = current_user, device = D).save()

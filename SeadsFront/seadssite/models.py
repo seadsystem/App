@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class Devices(models.Model):
 	#user_id = models.CharField(max_length=200, default='DEFAULT USERID')
 	device_id = models.IntegerField()
@@ -28,7 +27,7 @@ class Map(models.Model):
 	device = models.ForeignKey(Devices)
 
 	def __str__(self):
-		return "User: {} | Owns: {}".format(self.user,self.device.device_id)
+		return "User: {} | Owns: {} | DeviceName: {}".format(self.user,self.device.device_id,self.device.device_name)
 
 	def get_id(self):
 		return self.device.device_id
