@@ -26,8 +26,16 @@
       <div class="modal-body">
 		<form method="post">
  		{% csrf_token %}
-		<p><input type="text" class="span3" name="device_id" placeholder="123456" value=""></p>
-		<p><button type="submit" class="btn btn-success" value=1 name="register">Register!</button></p>
+ 		<div class="row">
+		<div class="col-lg-6">
+    	<div class="input-group">
+      	<input type="text" name="device_id" value="" class="form-control">
+      	<span class="input-group-btn">
+        <button class="btn btn-default" type="submit" value=1 name="register">Register!</button>
+      	</span>
+    	</div><!-- /input-group -->
+  		</div>
+  		</div>
 		</form>
       </div>
      </div>
