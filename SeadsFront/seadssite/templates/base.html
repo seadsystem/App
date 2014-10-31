@@ -34,9 +34,9 @@
  
  <div class="navbar-collapse collapse navbar-right">
   <ul class="nav navbar-nav">
-    <li><a href="#whatis">What is SEADS?</a></li>
-    <li><a href="#workingon">What are we working on?</a></li>
-    <li><a href="#contributors">Who are we?</a></li>
+    <li><a href="#whatis" class="page-scroll">What is SEADS?</a></li>
+    <li><a href="#workingon" class="page-scroll">What are we working on?</a></li>
+    <li><a href="#present-contributors" class="page-scroll">Who are we?</a></li>
     {% if user.is_anonymous %}
     <li class="signin"><button type="button" class="btn btn-default navbar-btn btn-sm signin actSign" onclick="window.location ='{%url 'django.contrib.auth.views.login' %}'">
       Sign In</button></li>
@@ -60,5 +60,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src={% static "js/bootstrap.min.js" %}></script>
+  <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'js/scrolling-nav.js' %}"></script>
 </body>
 </html>
