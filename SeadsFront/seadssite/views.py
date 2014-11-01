@@ -68,6 +68,18 @@ def register(request):
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
+        firstName = request.POST['firstName']
+        lastName = request.POST['lastName']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        cellProvider = request.POST['cellProvider']
+
+        #print firstName
+        #print lastName
+        #print email
+        #print phone
+        #print cellProvider
+        
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
 
