@@ -28,11 +28,11 @@
 						<i class="glyphicon glyphicon-remove"></i>
 						{%endif%}</td>
 						<td>
-							<button type="submit" class="btn" value={{device.get_id}} name="modify"><span class="glyphicon glyphicon-pencil"></span>
+							<button type="submit" class="btn glyphicon glyphicon-pencil" value={{device.get_id}} name="modify">
 							</button>
 							<form method="post">
 								{% csrf_token %}
-								<button type="submit" class="btn" value={{device.get_id}} name="delete"><span class="glyphicon glyphicon-trash"></span>
+								<button type="submit" class="btn glyphicon glyphicon-trash" value={{device.get_id}} name="delete">
 								</button>
 							</form>
 						</td>
