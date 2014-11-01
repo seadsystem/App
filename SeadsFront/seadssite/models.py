@@ -64,8 +64,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     # The additional attributes we wish to include.
-    firstName = models.CharField(max_length=50, default='First Name')
-    lastName = models.CharField(max_length=50, default='Last Name')
     phone = models.CharField(max_length=10)
     cellProvider = models.CharField(max_length=20)
 
