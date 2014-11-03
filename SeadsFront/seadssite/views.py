@@ -108,6 +108,7 @@ hit api asking for all data for a device (this gets displayed as soon as the
 '''
 
 def VisualizationView(request, device_id):
+  api_string = "DB/{}".format(device_id)
   fake_data = [
     ['Time', 'KW/H', 'Temp'],
     ['1',  50,      70],
@@ -132,6 +133,7 @@ def VisualizationView(request, device_id):
     ['20',  50,      70]
     ]
   if(request.POST.get('all')):
+    api_string = "DB/{}".format(device_id)
     fake_data = [
     ['Time', 'KW/H', 'Temp'],
     ['1',  50,      70],
@@ -157,6 +159,7 @@ def VisualizationView(request, device_id):
     ]
 
   elif(request.POST.get('month')):
+    api_string = api_string + "/month"
     fake_data = [
     ['Time', 'KW/H', 'Temp'],
     ['1',  50,      70],
@@ -172,6 +175,7 @@ def VisualizationView(request, device_id):
     ]
 
   elif(request.POST.get('week')):
+    api_string = api_string + "/week"
     fake_data = [
     ['Time', 'KW/H', 'Temp'],
     ['1',  50,      70],
@@ -181,5 +185,5 @@ def VisualizationView(request, device_id):
     ['5',  50,      70]
     ]
 
-  return render(request, 'visualization.html', {'data':fake_data, 'device':device_id})
+  return render(request, 'visualization.html', {'data':fake_data, 'api_call':api_string})
 
