@@ -10,7 +10,7 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable({{data|safe}});
         var options = {
-          title: 'Random Device',
+          title: 'Device {{device}}',
           curveType: 'function',
           legend: { position: 'bottom' }
         };

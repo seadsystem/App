@@ -96,6 +96,9 @@ def DashboardView(request):
         device_id = request.POST.get('delete')
         Devices.objects.filter(device_id = device_id).delete()
 
+    elif(request.POST.get('modify')):
+        print "modify the name of the device"
+
     return render(request, 'dashboard.html', {'devices': user_devices, 'device_id': device_id})
 
 '''
@@ -104,7 +107,7 @@ hit api asking for all data for a device (this gets displayed as soon as the
   user hits the page) then give options for different api calls
 '''
 
-def VisualizationView(request):
+def VisualizationView(request, device_id):
   fake_data = [
     ['Time', 'KW/H', 'Temp'],
     ['1',  50,      70],
@@ -178,5 +181,5 @@ def VisualizationView(request):
     ['5',  50,      70]
     ]
 
-  return render(request, 'visualization.html', {'data':fake_data})
+  return render(request, 'visualization.html', {'data':fake_data, 'device':device_id})
 
