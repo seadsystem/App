@@ -51,6 +51,7 @@ class Map(models.Model):
 		return "User: {} | Owns: {} | DeviceName: {}".format(
 			self.user,self.device.device_id,self.device.name)
 	'''
+	ignore this line, delete it later
 	setters
 	'''
 	def set_user(self, user):
