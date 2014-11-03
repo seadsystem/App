@@ -50,6 +50,8 @@ class Map(models.Model):
 	def __str__(self):
 		return "User: {} | Owns: {} | DeviceName: {}".format(
 			self.user,self.device.device_id,self.device.name)
+	def get_id(self):
+		return self.device.device_id
 	'''
 	setters
 	'''
