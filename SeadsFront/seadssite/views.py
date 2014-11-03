@@ -95,6 +95,9 @@ def DashboardView(request):
     elif(request.POST.get('delete')):
         device_id = request.POST.get('delete')
         Devices.objects.filter(device_id = device_id).delete()
+    
+    elif(request.POST.get('modify')):
+        print "modify the name of the device"
 
     return render(request, 'dashboard.html', {'devices': user_devices, 'device_id': device_id})
 
