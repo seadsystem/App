@@ -14,7 +14,7 @@
 			<tbody>
 				{% for device in devices%}
 				<tr>
-					<td>{{device.get_device.get_id}}</td>
+					<td>{{device.get_device.get_id}}<button class="btn btn-default" type="button"><a href="/visualization/{{device.get_device.get_id}}">Visualize</a></button></td>
 					<td>{{device.get_device.get_name}}</td>
 					<td>{% if device.get_device.get_connection %}
 						<i class="glyphicon glyphicon-ok"></i>
