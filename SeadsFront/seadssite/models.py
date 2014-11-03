@@ -7,7 +7,7 @@ model for SEADS devices like the SEADS plug
 class Devices(models.Model):
 	device_id = models.IntegerField()
 	name = models.CharField(max_length=200, default='DEFAULT VALUE')
-	connection_status = models.BooleanField(default=False)
+	connection_status = models.BooleanField(default=True)
 	power_status = models.BooleanField(default=False)
 	'''
 	getters
