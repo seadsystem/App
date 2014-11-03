@@ -10,47 +10,50 @@
 				<th>Device Name</th>
 				<th>Connection Status</th>
 				<th>Power Status</th>
-				<th>Opperations</th>
+				<th>Modify</th>
 			</thead>
 			<tbody>
 				{% for device in devices%}
 				<tr>
-					<td>{{device.get_device.get_id}}<button class="btn btn-default" type="button"><a href="/visualization/{{device.get_device.get_id}}">Visualize</a></button></td>
-					<td>{{device.get_device.get_name}}</td>
+					<td class = "col-md-2">{{device.get_device.get_id}}<button class="btn btn-default" type="button"><a href="/visualization/{{device.get_device.get_id}}">Visualize</a></button></td>
+					<td class = "col-md-2">{{device.get_device.get_name}}</td>
 					{% if device.get_device.get_connection %}
-					<td class="col-md-2">
+					<td class="col-md-1">
 						<i class="fa fa-check fa-2x text-success"></i>
 					</td>
 						{% else %}
-					<td class="col-md-2">
+					<td class="col-md-1">
 					    <i class="fa fa-times fa-2x text-danger"></i>
 						<!--<i class="glyphicon glyphicon-remove"></i>-->
 					</td>
 					{%endif%}
 					{% if device.get_device.get_power %}
-					<td class="col-md-2">
+					<td class="col-md-1">
 						<i class="fa fa-check fa-2x text-success"></i>
 					</td>
 						{% else %}
-					<td class="col-md-2">
+					<td class="col-md-1">
 					    <i class="fa fa-times fa-2x text-danger"></i>
 						<!--<i class="glyphicon glyphicon-remove"></i>-->
 						{%endif%}
 					</td>
 						<td class="col-md-1">
 							<div class="row">
-								<div class="col-md-1">
+								<div class="col-md-3">
 									<form method="post">
 										{% csrf_token %}
 										<button type="submit" class="btn glyphicon glyphicon-pencil" value={{device.get_id}} name="modify">
 										</button>
 									</form>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-3">
 									<form method="post">
 										{% csrf_token %}
-										<button type="submit" class="btn glyphicon glyphicon-trash text-danger" value={{device.get_device.get_id}} name="delete">
-										</button>
+										<button type="submit" class="btn btn-danger" value={{device.get_device.get_id}} name="delete" href="#">
+  										<i class="fa fa-trash-o fa-lg"></i> Delete </button>
+
+										<!--<button type="submit" class="btn glyphicon glyphicon-trash text-danger" value={{device.get_device.get_id}} name="delete">
+										</button>-->
 									</form>
 								</div>
 							</div>
