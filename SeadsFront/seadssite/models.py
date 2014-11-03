@@ -53,6 +53,7 @@ class Map(models.Model):
 	def get_id(self):
 		return self.device.device_id
 	'''
+	ignore this line, delete it later
 	setters
 	'''
 	def set_user(self, user):
