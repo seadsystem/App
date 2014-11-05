@@ -8,33 +8,11 @@ from django.views.generic import View, CreateView
 from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
-#from django.shortcuts import render_to_response
-#from django.views.generic import CreateView
-#from .models import Map
+
 
 class IndexView(TemplateView):
   template_name = 'index.html'
 
-#Is this used?
-def user_login(request):
-    context = RequestContext(request)
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                #Rango?
-                return HttpResponseRedirect('/rango/')
-            else:
-                #Rango?
-                return HttpResponse("Your Rango account is disabled.")
-        else:            
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render_to_response('rango/login.html', {}, context)
 
 def register(request):
     context = RequestContext(request)
@@ -75,38 +53,55 @@ def register(request):
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
             context)
 
-def DashboardView(request):
-    device_id = 0
-    current_user = request.user    
-    user_devices = Map.objects.filter(user_id=current_user.id)
 
-    if(request.POST.get('register')):
+def DashboardView(request):
+    #get current user and all devices associated via map
+    current_user = request.user    
+    user_devices_map = Map.objects.filter(user=current_user.id)
+    #if the user clicked register
+    if request.POST.get('register'):
+        #get the new device ID and name from the post
         new_device_id = request.POST.get('device_id')
         new_device_name = request.POST.get('device_name')
+        #try to create a new device and map it to the user
         try:
             D = Devices(device_id=new_device_id, name=new_device_name)
             D.save()     
             Map(user = current_user, device = D).save()
+        #catch errors
         except ValueError:
             print "Invalid Device ID"
         except TypeError:
             print "Invalid Device ID"
-
-    elif(request.POST.get('delete')):
+    #if the user clicked delete
+    elif request.POST.get('delete'):
+        #get the device ID from the post
+        '''
+        TODO: Verify that device ID posted for deletion is associated with current user
+        this avoids sending a post request to delete random peoples devices
+        '''
         device_id = request.POST.get('delete')
+        #delete the record in the DB (cascades to delete the map)
         Devices.objects.filter(device_id = device_id).delete()
+    #if the user clicked modify
+    elif request.POST.get('modify'):
+        #get the device ID from the post
+        '''
+        TODO: Verify that device ID posted for modification is associated with current user
+        this avoids sending a post request to modify random peoples devices
+        '''
+        device_id = request.POST.get('modify')
+        #modify the name in the DB
+        print "modify the name of device: {}".format(device_id)
 
-    elif(request.POST.get('modify')):
-        print "modify the name of the device"
+    return render(request, 'dashboard.html', {'maps': user_devices_map})
 
-    return render(request, 'dashboard.html', {'devices': user_devices, 'device_id': device_id})
 
 '''
 workflow:
 hit api asking for all data for a device (this gets displayed as soon as the
   user hits the page) then give options for different api calls
 '''
-
 def VisualizationView(request, device_id):
   api_string = "DB/{}".format(device_id)
   fake_data = [

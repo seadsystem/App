@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
+<script src="{% static 'x-editable/js/x-main.js' %}"></script>
 <br/>
 <div class="col-md-12">
 	<div class="table-responsive">
@@ -13,47 +14,44 @@
 				<th>Modify</th>
 			</thead>
 			<tbody>
-				{% for device in devices%}
+				{% for map in maps%}
 				<tr>
-					<td class = "col-md-2">{{device.get_device.get_id}}<button class="btn btn-default" type="button"><a href="/visualization/{{device.get_device.get_id}}">Visualize</a></button></td>
-					<td class = "col-md-2">{{device.get_device.get_name}}</td>
-					{% if device.get_device.get_connection %}
+					<td class = "col-md-2">{{map.device.device_id}}<button class="btn btn-default" type="button"><a href="/visualization/{{map.device.device_id}}">Visualize</a></button></td>
+					<td class = "col-md-2">
+					<a href="" id="dev_name" data-type="text" data-placement="right" data-title="Enter new device name">{{map.device.name}}</a>
+					</td>
+					{% if map.device.connection %}
 					<td class="col-md-1">
 						<i class="fa fa-check fa-2x text-success"></i>
 					</td>
-						{% else %}
+					{% else %}
 					<td class="col-md-1">
-					    <i class="fa fa-times fa-2x text-danger"></i>
-						<!--<i class="glyphicon glyphicon-remove"></i>-->
+						<i class="fa fa-times fa-2x text-danger"></i>						
 					</td>
 					{%endif%}
-					{% if device.get_device.get_power %}
+					{% if map.device.power %}
 					<td class="col-md-1">
 						<i class="fa fa-check fa-2x text-success"></i>
 					</td>
-						{% else %}
+					{% else %}
 					<td class="col-md-1">
-					    <i class="fa fa-times fa-2x text-danger"></i>
-						<!--<i class="glyphicon glyphicon-remove"></i>-->
+						<i class="fa fa-times fa-2x text-danger"></i>						
 						{%endif%}
 					</td>
-						<td class="col-md-1">
-							<div class="row">
-								<div class="col-md-3">
-									<form method="post">
-										{% csrf_token %}
-										<button type="submit" class="btn glyphicon glyphicon-pencil" value={{device.get_id}} name="modify">
-										</button>
-									</form>
-								</div>
-								<div class="col-md-3">
-									<form method="post">
-										{% csrf_token %}
-										<button type="submit" class="btn btn-danger" value={{device.get_device.get_id}} name="delete" href="#">
-  										<i class="fa fa-trash-o fa-lg"></i> Delete </button>
-
-										<!--<button type="submit" class="btn glyphicon glyphicon-trash text-danger" value={{device.get_device.get_id}} name="delete">
-										</button>-->
+					<td class="col-md-1">
+						<div class="row">
+							<div class="col-md-3">
+								<form method="post">
+									{% csrf_token %}
+									<button type="submit" class="btn glyphicon glyphicon-pencil" value={{map.device.device_id}} name="modify">
+									</button>
+								</form>
+							</div>
+							<div class="col-md-3">
+								<form method="post">
+									{% csrf_token %}
+									<button type="submit" class="btn btn-danger" value={{map.device.device_id}} name="delete">
+										<i class="fa fa-trash-o fa-lg"></i> Delete </button>
 									</form>
 								</div>
 							</div>
