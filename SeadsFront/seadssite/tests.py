@@ -1,4 +1,27 @@
-#from django.test import TestCase
+# from django.test import TestCase
+# to run this just type: python tests.py
+# say you are on the test branch:
+
+
+# steps to take when you are making any GOOD changes: 
+
+# git add .
+# git commit -m "what I added..."
+# git push origin tests //only push if it is in a working state
+
+# git checkout master
+# git pull origin master
+
+# to avoid local copy of master to be broken:
+# git checkout tests
+# git merge master (as long as your master is up to date)
+# git add . 
+# git commit -m "a message of what i added..."
+
+# git checkout master
+# git merge tests
+# <<<< now your master and your tests are the most up to date
+# git push origin master
 
 # Create your tests here.
 
