@@ -2,6 +2,6 @@ $(document).ready(function() {
     //toggle `popup` / `inline` mode
     $.fn.editable.defaults.mode = 'inline';     
     //make username editable
-    $('#dev_name').editable({pk: 1,url: '/'});
+    $('#dev_name').editable();
 
 });
