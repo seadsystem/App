@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
+<script src="{% static 'x-editable/js/x-main.js' %}"></script>
 <br/>
 <div class="col-md-12">
 	<div class="table-responsive">
@@ -16,7 +17,9 @@
 				{% for map in maps%}
 				<tr>
 					<td class = "col-md-2">{{map.device.device_id}}<button class="btn btn-default" type="button"><a href="/visualization/{{map.device.device_id}}">Visualize</a></button></td>
-					<td class = "col-md-2">{{map.device.name}}</td>
+					<td class = "col-md-2">
+					<a href="" id="dev_name" data-type="text" data-placement="right" data-title="Enter new device name">{{map.device.name}}</a>
+					</td>
 					{% if map.device.connection %}
 					<td class="col-md-1">
 						<i class="fa fa-check fa-2x text-success"></i>

@@ -26,25 +26,3 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     phone = models.CharField(max_length=10)
     cellProvider = models.CharField(max_length=20)
-
-    '''
-    getters
-    
-    def get_user(self):
-    	return self.user
-    def get_phone(self):
-    	return self.phone
-    def get_cell(self):
-    	return self.cellProvider
-    def __str__(self):
-        return "{}".format(self.user.username)
-    
-    setters
-    
-    def set_user(self, user):
-    	self.user = user
-    def set_phone(self, phone):
-    	self.phone = phone
-    def set_cell(self, cell_provider):
-    	self.cellProvider = cell_provider
-    '''
