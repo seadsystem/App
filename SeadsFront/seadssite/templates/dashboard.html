@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
+<script src="{% static 'x-editable/js/x-main.js' %}"></script>
 <br/>
 <div class="col-md-12">
 	<div class="table-responsive">
@@ -16,55 +17,58 @@
 				{% for map in maps%}
 				<tr>
 					<td class = "col-md-2">{{map.device.device_id}}<button class="btn btn-default" type="button"><a href="/visualization/{{map.device.device_id}}">Visualize</a></button></td>
-					<td class = "col-md-2">{{map.device.name}}</td>
-					{% if map.device.connection %}
-					<td class="col-md-1">
-						<i class="fa fa-check fa-2x text-success"></i>
-					</td>
-					{% else %}
-					<td class="col-md-1">
-						<i class="fa fa-times fa-2x text-danger"></i>						
-					</td>
-					{%endif%}
-					{% if map.device.power %}
-					<td class="col-md-1">
-						<i class="fa fa-check fa-2x text-success"></i>
-					</td>
-					{% else %}
-					<td class="col-md-1">
-						<i class="fa fa-times fa-2x text-danger"></i>						
+					<td class = "col-md-2">
+					<a href="" id="dev_name" data-type="text" data-pk="{{map.device.device_id}}" data-title="" data-placement="right" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+							{{map.device.name}}</a>
+						</td>
+						{% if map.device.connection %}
+						<td class="col-md-1">
+							<i class="fa fa-check fa-2x text-success"></i>
+						</td>
+						{% else %}
+						<td class="col-md-1">
+							<i class="fa fa-times fa-2x text-danger"></i>						
+						</td>
 						{%endif%}
-					</td>
-					<td class="col-md-1">
-						<div class="row">
-							<div class="col-md-3">
-								<form method="post">
-									{% csrf_token %}
-									<button type="submit" class="btn glyphicon glyphicon-pencil" value={{map.device.device_id}} name="modify">
-									</button>
-								</form>
-							</div>
-							<div class="col-md-3">
-								<form method="post">
-									{% csrf_token %}
-									<button type="submit" class="btn btn-danger" value={{map.device.device_id}} name="delete">
-										<i class="fa fa-trash-o fa-lg"></i> Delete </button>
+						{% if map.device.power %}
+						<td class="col-md-1">
+							<i class="fa fa-check fa-2x text-success"></i>
+						</td>
+						{% else %}
+						<td class="col-md-1">
+							<i class="fa fa-times fa-2x text-danger"></i>						
+							{%endif%}
+						</td>
+						<td class="col-md-1">
+							<div class="row">
+								<div class="col-md-3">
+									<form method="post">
+										{% csrf_token %}
+										<button type="submit" class="btn glyphicon glyphicon-pencil" value={{map.device.device_id}} name="modify">
+										</button>
 									</form>
 								</div>
-							</div>
-						</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+								<div class="col-md-3">
+									<form method="post">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-danger" value={{map.device.device_id}} name="delete">
+											<i class="fa fa-trash-o fa-lg"></i> Delete </button>
+										</form>
+									</div>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#register_modal">
-				Register Device
-			</button>
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#register_modal">
+					Register Device
+				</button>
 
+			</div>
 		</div>
-	</div>
 
 	<!-- Modal -->
 	<div class="modal fade" id="register_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

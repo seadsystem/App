@@ -1,11 +1,17 @@
 {% load staticfiles %}
 <html>
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+  <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'js/scrolling-nav.js' %}"></script>
   <link href="{% static 'css/bootstrap.min.css' %}"
   rel="stylesheet" media="screen">
   <link href="{% static 'css/landing.css' %}" rel="stylesheet">
   <link href="{% static 'fonts/FontAwesome/css/font-awesome.css' %}" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <link href="{% static 'x-editable/css/bootstrap-editable.css' %}" rel="stylesheet"/>
+  <script src="{% static 'x-editable/js/bootstrap-editable.min.js' %}"></script>
   
   <style>
     body {
@@ -32,7 +38,7 @@
      {% if user.is_anonymous %}
      {% else %}
      <li><a class="navbar-left" href="/dashboard/"><span class="glyphicon glyphicon-dashboard"></span> <b>Dashboard</b></a></li>
-    <!--  <li><a class="navbar-left" href="/visualization/"><span class="glyphicon"></span> <b>Graphs</b></a></li> -->
+     <!--  <li><a class="navbar-left" href="/visualization/"><span class="glyphicon"></span> <b>Graphs</b></a></li> -->
      <!-- <li><a class="navbar-left" href=""><span class="glyphicon"></span> <b>Settings</b></a></li> -->
      {% endif %}
    </ul>
@@ -64,10 +70,5 @@
 
   {% block content %}
   {% endblock %}
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src={% static "js/bootstrap.min.js" %}></script>
-  <script src="{% static 'js/jquery.easing.min.js' %}"></script>
-  <script src="{% static 'js/scrolling-nav.js' %}"></script>
 </body>
 </html>
