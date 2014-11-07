@@ -18,7 +18,7 @@
 					<tr>
 						<td class = "col-md-2"><span style="position:relative;float:left;">{{map.device.device_id}}</span><a class="btn btn-default" href="/visualization/{{map.device.device_id}}" style="position:relative;float:right;">Visualize</a></td>
 						<td class = "col-md-2">
-							<a href="" id="modify" data-type="text" data-pk="{{map.device.device_id}}" data-placement="right" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
+							<a href="" class="modify" data-type="text" data-pk="{{map.device.device_id}}" data-placement="right" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">
 								{{map.device.name}}</a>
 							</td>
 							{% if map.device.connection %}

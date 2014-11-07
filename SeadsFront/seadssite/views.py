@@ -66,6 +66,7 @@ def DashboardView(request):
         new_name = request.POST.get('value')        
         '''
         a bit of a hack, this assumes every device has a unique ID, will have to be enforced in DB
+        we must also enforce that the name field can't be blank
         '''
         #save info to device object
         D = Devices.objects.filter(device_id = device_id)[0]        

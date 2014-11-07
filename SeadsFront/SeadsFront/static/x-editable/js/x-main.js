@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $.fn.editable.defaults.mode = 'inline';     
-    $('#modify').editable({
+    $('.modify').editable({
+    				name: "modify",
    					url: '../dashboard/',   					
 				  });
 });
