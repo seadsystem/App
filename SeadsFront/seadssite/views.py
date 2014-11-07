@@ -58,8 +58,23 @@ def DashboardView(request):
     #get current user and all devices associated via map
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
+
+    #if the user clicked the editable field and submitted an edit
+    if request.POST.get('name') == "modify":
+        #pull info out of request
+        device_id = request.POST.get('pk')        
+        new_name = request.POST.get('value')        
+        '''
+        a bit of a hack, this assumes every device has a unique ID, will have to be enforced in DB
+        '''
+        #save info to device object
+        D = Devices.objects.filter(device_id = device_id)[0]        
+        D.name = new_name
+        D.save()
+    
+
     #if the user clicked register
-    if request.POST.get('register'):
+    elif request.POST.get('register'):
         #get the new device ID and name from the post
         new_device_id = request.POST.get('device_id')
         new_device_name = request.POST.get('device_name')
@@ -73,6 +88,7 @@ def DashboardView(request):
             print "Invalid Device ID"
         except TypeError:
             print "Invalid Device ID"
+
     #if the user clicked delete
     elif request.POST.get('delete'):
         #get the device ID from the post
@@ -83,6 +99,7 @@ def DashboardView(request):
         device_id = request.POST.get('delete')
         #delete the record in the DB (cascades to delete the map)
         Devices.objects.filter(device_id = device_id).delete()
+
     #if the user clicked modify
     elif request.POST.get('modify'):
         #get the device ID from the post
