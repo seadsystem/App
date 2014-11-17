@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from seadssite import views as v
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+#both added for blog
 
 urlpatterns = patterns('',
 
@@ -13,6 +14,7 @@ urlpatterns = patterns('',
     (r'^logout/$', 'django.contrib.auth.views.logout',
     	{'next_page': '/'}),
     url(r'^register/$', v.register),
-                        )
+    # url(r'^WeeklyNews/$', v.weeklynews),
+)                    
 
 urlpatterns += staticfiles_urlpatterns()

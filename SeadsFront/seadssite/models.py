@@ -26,3 +26,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     phone = models.CharField(max_length=10)
     cellProvider = models.CharField(max_length=20)
+
+# For the blog 
+

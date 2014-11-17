@@ -2,12 +2,14 @@ from .models import Devices, Map
 from django.http import HttpResponseRedirect, HttpResponse
 from seadssite.forms import UserForm, UserProfileForm
 from django.template import RequestContext
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.views.generic import View, CreateView
 from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
+###Added for blog
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class IndexView(TemplateView):
@@ -200,3 +202,112 @@ def VisualizationView(request, device_id):
 
   return render(request, 'visualization.html', {'data':fake_data, 'api_call':api_string})
 
+
+
+
+####ADDED for blog
+
+# def WeeklyNews(request):
+#     """The weekly news index"""
+#     archive_dates = Article.objects.dates('date_publish','month', order='DESC')
+#     categories = Category.objects.all()
+
+#     page = request.GET.get('page')
+#     article_queryset = Article.objects.all()
+#     paginator = Paginator(article_queryset, 5)
+
+#     try:
+#         articles = paginator.page(page)
+#     except PageNotAnInteger:
+#         #if the page is not an integer, deliver the first page
+#         articles = paginator.page(1)
+#     except EmptyPage:
+#         #If page is out of range deliver the last page of result
+#         articles = paginator.page(paginator.num_pages)
+
+#     return render(
+#         request,
+#         "seadssite/article/WeeklyNews.html",
+#         {
+#             "articles" : articles,
+#             "archive_dates" : archive_dates
+#             "categories" : categories
+#         }
+#     )
+
+# def single(request, slug):
+#     """for seeing a single article"""
+#     article = get_object_or_404(Article, slug=slug)
+#     archive_dates = Article.objects.dates('date_publish','month', order='DESC')
+#     categories = Category.objects.all()
+#     return render(
+#         request,
+#         'seadssite/article/single.html',
+#         {
+#         "article":article,
+#         "archive_dates":archive_dates,
+#         "categories":categories
+#         }
+#     )
+
+# def date_archive(request, year, month):
+#     """archive ---date"""
+#     year = int(year)
+#     month = int(month)
+#     month_range = calendar.monthrange(year,month)
+#     start = datetime.datetime(year=year, month=month, day=1)
+#     end = datetime.datetime(year=year, month=month, day=month_range[1])
+#     archive_dates = Article.objects.dates('date_publish','month',order='DESC')
+#     categories = CAtegpry.pbjects.all()
+
+#     page = request.GET.get('page')
+#     article_queryset = Article.objects.dates(date_publish__range=(start.date(), end.date()))
+#     paginator = Paginator(article_queryset, 5)
+
+#     try:
+#         articles = paginator.page(page)
+#     except PageNotAnInteger:
+#         articles = paginator.page(1)
+#     except EmptyPage:
+#         articles = paginator.page(paginator.num_pages)
+#     return render(
+#         request,
+#         "seadssite/article/date_archive.html",
+#         {
+#             "start":start,
+#             "end":end,
+#             "articles":articles,
+#             "archive_dates":archive_dates,
+#             "categories":categories
+#         }
+#     )
+
+# def category_archive(request, slug):
+#     """see archive by category"""
+#      archive_dates = Article.objects.dates('date_publish','month', order='DESC')
+#     categories = Category.objects.all()
+#     category = get_object_or_404(Category, slug=slug)
+
+#     # Pagination
+#     page = request.GET.get('page')
+#     article_queryset = Article.objects.filter(categories=category)
+#     paginator = Paginator(article_queryset, 5)
+
+#     try:
+#         articles = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         articles = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range (e.g. 9999), deliver last page of results.
+#         articles = paginator.page(paginator.num_pages)
+#     return render(
+#         request,
+#         "seadssite/article/category_archive.html",
+#         {
+#             "articles" : articles,
+#             "archive_dates" : archive_dates,
+#             "categories" : categories,
+#             "category" : category
+#         }
+#     )
