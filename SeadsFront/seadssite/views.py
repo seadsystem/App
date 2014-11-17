@@ -112,7 +112,7 @@ def DashboardView(request):
         #modify the name in the DB
         print "modify the name of device: {}".format(device_id)
 
-    return render(request, 'devices.html', {'maps': user_devices_map})
+    return render(request, 'dashboard.html', {'maps': user_devices_map})
 
 
 def DevicesView(request):
