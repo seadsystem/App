@@ -14,7 +14,10 @@ urlpatterns = patterns('',
     (r'^logout/$', 'django.contrib.auth.views.logout',
     	{'next_page': '/'}),
     url(r'^register/$', v.register),
-    # url(r'^WeeklyNews/$', v.weeklynews),
+    url(r'^WeeklyNews/$', v.WeeklyNews),
+    url(r'^seadssite/WeeklyNews/view/(?P<slug>[^\.]+).html','seadssite.views.view_post', name='view_blog_post'),
+    url(r'^seadssite/WeeklyNews/category/(?P<slug>[^\.]+).html','seadssite.views.view_category', name='view_blog_category'),
+    # url(r'^post/new/$', v.WeeklyNews),
 )                    
 
 urlpatterns += staticfiles_urlpatterns()
