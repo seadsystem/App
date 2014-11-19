@@ -64,6 +64,7 @@ device dashboard page controller
 TODO: users can delete eachothers devices I think
 '''
 def DashboardView(request):
+    alerts = []
     #get current user and all devices associated via map
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
@@ -78,6 +79,7 @@ def DashboardView(request):
             '''
             TODO: Deal with this for the user
             '''
+            alerts.append("The device you've attempted to register has already been registered.")
             print "Matching device ID"
         else:
         #try to create a new device and map it to the user
@@ -102,10 +104,11 @@ def DashboardView(request):
         #delete the record in the DB (cascades to delete the map)
         Devices.objects.filter(device_id = device_id).delete()
 
-    return render(request, 'dashboard.html', {'maps': user_devices_map})
+    return render(request, 'dashboard.html', {'maps': user_devices_map, 'alerts':alerts})
 
 
 def DevicesView(request):
+    alerts = []
     #get current user and all devices associated via map
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
@@ -135,6 +138,7 @@ def DevicesView(request):
             '''
             TODO: Deal with this for the user
             '''
+            alerts.append("The device you've attempted to register has already been registered.")
             print "Matching device ID"
         else:
         #try to create a new device and map it to the user
@@ -157,6 +161,11 @@ def DevicesView(request):
         '''
         device_id = request.POST.get('delete')
         #delete the record in the DB (cascades to delete the map)
+        '''
+        I want to actually check for all maps that contain this device ID,
+        if there is only one then delete the device (cascades to the map),
+        if there are multiple maps then just delete the map for this user
+        '''
         Devices.objects.filter(device_id = device_id).delete()
 
     #if the user clicked modify
@@ -170,7 +179,7 @@ def DevicesView(request):
         #modify the name in the DB
         print "modify the name of device: {}".format(device_id)
 
-    return render(request, 'devices.html', {'maps': user_devices_map})
+    return render(request, 'devices.html', {'maps': user_devices_map, 'alerts':alerts})
 
 
 '''
