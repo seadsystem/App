@@ -224,6 +224,6 @@ def view_category(request, slug):
         'posts': BLog.objects.filter(category=category)[:5]
         })
 
-# def post_new(request):
-#     form = PostForm()
-#     return render(request, 'seadssite/postedit.html', {'form':form})
+def post_new(request):
+    model = newPost
+    return render(request, 'seadssite/postnew.html')#, {'form':form}

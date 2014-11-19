@@ -31,8 +31,8 @@ class UserProfile(models.Model):
 # For the blog 
 
 class Blog(models.Model):
-	title = models.CharField(max_length=100, unique=True)
-	slug = models.SlugField(max_length=100, unique=True)
+	title = models.CharField(max_length=255, unique=True)
+	slug = models.SlugField(max_length=255, unique=True)
 	body = models.TextField()
 	posted = models.DateField(db_index=True, auto_now_add=True)
 	category = models.ForeignKey('seadssite.Category')
@@ -45,8 +45,8 @@ class Blog(models.Model):
 		return ('view_blog_post', None, {'slug':self.slug})
 
 class Category(models.Model):
-	title = models.CharField(max_length=100, db_index=True)
-	slug = models.SlugField(max_length=100, db_index=True)
+	title = models.CharField(max_length=255, db_index=True)
+	slug = models.SlugField(max_length=255, db_index=True)
 
 	def __unicode__(self):
 		return '%s' % self.title
@@ -54,4 +54,12 @@ class Category(models.Model):
 	@permalink
 	def get_absolute_url(self):
 		return ('view_blog_category', None, {'slug':self.slug})
+
+class newPost(models.Model):
+    title = models.CharField(max_length=255, unique=True)
+    category = models.CharField(max_length=255, default=0)
+    body = models.TextField()
+    slug = models.SlugField(max_length=255, unique=True)
+    posted = models.DateField(db_index=True, auto_now_add=True)
+
 

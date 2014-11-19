@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^seadssite/WeeklyNews/view/(?P<slug>[^\.]+).html','seadssite.views.view_post', name='view_blog_post'),
     url(r'^seadssite/WeeklyNews/category/(?P<slug>[^\.]+).html','seadssite.views.view_category', name='view_blog_category'),
     # url(r'^post/new/$', v.WeeklyNews),
+    url(r'^seadssite/postnew/$', 'seadssite.views.post_new', name="new_post"),
+
 )                    
 
 urlpatterns += staticfiles_urlpatterns()

@@ -96,3 +96,6 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+
+##added for the blog forms -- CRISPY FORMS 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
