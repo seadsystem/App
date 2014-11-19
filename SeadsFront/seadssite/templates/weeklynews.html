@@ -3,17 +3,17 @@
 {% block title %} Weekly News {% endblock %}
 {% block content %}
 <div class="container">
-	<h2>Posts</h2>
-	{% if posts %}
-		<!-- <ul>
-		{% for post in posts %}
+	<h3>Posts</h3>
+	{% if Blog %}
+		<ul>
+		{% for post in Blog %}
 			<li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li> 
 		{% endfor %}
 		</ul>
 	{% else %}
 		<p>There are no posts.</p>
-	{% endif %} -->
-		{% for post in posts %}
+	{% endif %}
+	<!-- 	{% for post in posts %}
     		<li><a href="{{post.get_absolute_url}}">{{ post.title }}</a></li>
 		{% endfor %}
 
@@ -31,9 +31,9 @@
     	    	    <a href="?page={{ post.next_page_number }}">next</a>
         		{% endif %}
 	    	</span>
-		</div>
+		</div> -->
 	
-	<h2>Categories</h2>
+	<h3>Categories</h3>
 	{% if categories %}
 		<ul>
 		{% for category in categories %}

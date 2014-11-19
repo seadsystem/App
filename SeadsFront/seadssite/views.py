@@ -229,7 +229,9 @@ def WeeklyNews(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
 
-    return render_to_response('weeklynews.html', {"Blog": Blog})
+    return render_to_response('weeklynews.html', {
+        "categories":Category.objects.all(),
+        "Blog": post_list[:5]})
 
 def view_post(request, slug):
     return render_to_response('viewpost.html',{
@@ -237,6 +239,7 @@ def view_post(request, slug):
         })
 
 def view_category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
     return render_to_response('viewcategory.html',{
         'category':category,
         'posts': BLog.objects.filter(category=category)[:5]
@@ -245,3 +248,11 @@ def view_category(request, slug):
 def post_new(request):
     model = newPost
     return render(request, 'postnew.html') #{'form':form}
+
+
+
+
+
+
+
+    

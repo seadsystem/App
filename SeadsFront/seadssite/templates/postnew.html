@@ -1,27 +1,52 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block content %}
 <html>
-	<head>
-		<title>SEADS Weekly News</title>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    </head>
-    <body>
-        <div class="page-header">
-            <a href="{% url 'blog.views.post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-            <h1><a href="/">SEADS Weekly News</a></h1>
-        </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
-        </div>
-    </body>
-</html> 
+<head>
+	<title>SEADS Weekly News</title>
 
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>New Post</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Post Title">Post Tile</label>  
+  <div class="col-md-4">
+  <input id="Post Title" name="Post Title" type="text" placeholder="title" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="body">Post Body</label>
+  <div class="col-md-4">                     
+    <textarea class="form-control input-md" required="" id="body" name="body" type="text">enter body of post</textarea>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="category">Category</label>  
+  <div class="col-md-4">
+  <input id="category" name="category" type="text" placeholder="category" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Button (Double) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="button1id">Option</label>
+  <div class="col-md-8">
+    <button id="button1id" name="button1id" class="btn btn-success">Save</button>
+    <button id="button2id" name="button2id" class="btn btn-danger">Delete</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+</html>
+{% endblock %}
