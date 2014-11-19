@@ -3,6 +3,8 @@ from django.contrib import admin
 from seadssite import views as v
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 #both added for blog
+from seadssite.views import newPost
+
 
 urlpatterns = patterns('',
 
@@ -18,7 +20,7 @@ urlpatterns = patterns('',
     url(r'^seadssite/WeeklyNews/view/(?P<slug>[^\.]+).html','seadssite.views.view_post', name='view_blog_post'),
     url(r'^seadssite/WeeklyNews/category/(?P<slug>[^\.]+).html','seadssite.views.view_category', name='view_blog_category'),
     # url(r'^post/new/$', v.WeeklyNews),
-    url(r'^seadssite/postnew/$', 'seadssite.views.post_new', name="new_post"),
+    url(r'^postnew/$', 'seadssite.views.post_new', name="new_post"),
 
 )                    
 

@@ -9,7 +9,9 @@ from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 ###Added for blog
-from seadssite.models import Blog, Category
+from seadssite.models import Blog, Category, newPost
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 class IndexView(TemplateView):
@@ -207,11 +209,27 @@ def VisualizationView(request, device_id):
 
 ####ADDED for blog
 
+# def WeeklyNews(request):
+#     return render_to_response('weeklynews.html',{
+#         'categories': Category.objects.all(),
+#         'posts': Blog.objects.all()[:5]
+#         })
+
 def WeeklyNews(request):
-    return render_to_response('weeklynews.html',{
-        'categories': Category.objects.all(),
-        'posts': Blog.objects.all()[:5]
-        })
+    post_list = Blog.objects.all()
+    paginator = Paginator(post_list, 5) # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        post = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+
+    return render_to_response('weeklynews.html', {"Blog": Blog})
 
 def view_post(request, slug):
     return render_to_response('viewpost.html',{
@@ -226,4 +244,4 @@ def view_category(request, slug):
 
 def post_new(request):
     model = newPost
-    return render(request, 'seadssite/postnew.html')#, {'form':form}
+    return render(request, 'postnew.html') #{'form':form}
