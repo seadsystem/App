@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
+{% if alerts %}
+{% for alert in alerts %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong>Something went wrong and you action could not be completed: </strong> {{alert}}
+</div>
+{% endfor %}
+{% endif %}
 <script src="{% static 'x-editable/js/x-main.js' %}"></script>
 	<div class="container">
 			{%for map in maps%}
