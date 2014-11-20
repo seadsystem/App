@@ -133,11 +133,9 @@ def DevicesView(request):
         #get the new device ID and name from the post
         new_device_id = request.POST.get('device_id')
         new_device_name = request.POST.get('device_name')
-        #check if device is already registered
-        if Devices.objects.filter(device_id=new_device_id):
-            '''
-            TODO: Deal with this for the user
-            '''
+        #check if device is already registered to this user
+        D = Devices.objects.filter(device_id=new_device_id)
+        if Map.objects.filter(user=current_user.id, device=D):
             alerts.append("The device you've attempted to register has already been registered.")
             print "Matching device ID"
         else:
@@ -155,18 +153,21 @@ def DevicesView(request):
     #if the user clicked delete
     elif request.POST.get('delete'):
         #get the device ID from the post
-        '''
-        TODO: Verify that device ID posted for deletion is associated with current user
-        this avoids sending a post request to delete random peoples devices
-        '''
         device_id = request.POST.get('delete')
-        #delete the record in the DB (cascades to delete the map)
-        '''
-        I want to actually check for all maps that contain this device ID,
-        if there is only one then delete the device (cascades to the map),
-        if there are multiple maps then just delete the map for this user
-        '''
-        Devices.objects.filter(device_id = device_id).delete()
+        #get respective DB objects
+        D = Devices.objects.filter(device_id = device_id)
+        M = Map.objects.filter(device=D)
+        #if the user owns the device they are trying to delete
+        if Map.objects.filter(user=current_user.id, device=D):
+            #if multiple users own the device
+            if len(M) > 1:
+                #just delete this users map to the device
+                Map.objects.filter(user=current_user.id, device=D).delete()
+            else:
+                #delete the device itself (cascades to map)
+                Devices.objects.filter(device_id = device_id).delete()
+        else:
+            print "you don't own the device you're deleting, or it doesn't exist"
 
     #if the user clicked modify
     elif request.POST.get('modify'):
