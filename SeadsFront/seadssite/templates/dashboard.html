@@ -3,11 +3,20 @@
 {% block content %}
 {% if alerts %}
 {% for alert in alerts %}
-
 <div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <strong>Something went wrong and you action could not be completed: </strong> {{alert}}
 </div>
+<script>
+$(document).ready(function(){
+	$(".delete").click(function(event){
+	  event.stopPropagation();
+	});
+	$(".deviceBox").click(function(event){
+	  window.location.href = "/devices/";
+	});
+});
+</script>
 {% endfor %}
 {% endif %}
 <script src="{% static 'x-editable/js/x-main.js' %}"></script>
@@ -22,15 +31,15 @@
 					{% endif %}
 				{% endif %}
 				<div class="col-md-6">
-					<div style="background: #f8f8f8;width:100%;height:50%;margin:0 auto;border-radius: 4px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;">
+					<div style="background: #f8f8f8;width:100%;height:50%;margin:0 auto;border-radius: 4px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;" class="deviceBox">
 						<div style="float:right;padding:10px;">
 							<form method="post">
 											{% csrf_token %}
-											<button type="submit" class="btn btn-danger" value={{map.device.device_id}} name="delete">
+											<button type="submit" class="btn btn-danger delete" value={{map.device.device_id}} name="delete">
 												<i class="fa fa-trash-o fa-lg"></i> Delete </button>
 											</form>
 						</div>
-						<div style="float:left;padding:10px;">
+						<div style="float:left;padding:10px;" >
 							<span style="font-size:25px;color:#5e5e5e;">{{map.device.name}}</span>
 						</div>
 						<span class="glyphicon glyphicon-off" aria-hidden="true" style="font-size:150px;color:#a4a4a4;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></span>
