@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     (r'^logout/$', 'django.contrib.auth.views.logout',
     	{'next_page': '/'}),
     url(r'^register/$', v.register),
+    url(r'^help/$', v.help),
                         )
 
 urlpatterns += staticfiles_urlpatterns()

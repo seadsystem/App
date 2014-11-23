@@ -9,16 +9,23 @@ from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 
+from django.core.mail import send_mail
+from django.shortcuts import render_to_response as render_to
 
 class IndexView(TemplateView):
   template_name = 'index.html'
 
+def help(request, template_name='registration/login.html'):
+    # for SMS http://stackoverflow.com/questions/430582/sending-an-sms-to-a-cellphone-using-django
+    email = request.POST['email']
+    send_mail('Login Information', 'This is a test', 'seadssystems@gmail.com', [email])
+    return HttpResponseRedirect('/login')
 
 def register(request):
     context = RequestContext(request)
     registered = False
-    if request.method == 'POST':
 
+    if request.method == 'POST':
         phone = request.POST['phone']
         cellProvider = request.POST['cellProvider']
 
@@ -39,6 +46,12 @@ def register(request):
             registered = True
             user = authenticate (username=request.POST['username'], password=request.POST['password'])
             login(request, user)
+
+            #sending a welcome email to the new user
+            #for html/css: http://stackoverflow.com/questions/3237519/sending-html-email-in-django
+            toemail = request.POST['email']
+            send_mail('Welcome!', 'You are now registered with SEADS.', 'seadssystems@gmail.com', [toemail])
+
             return HttpResponseRedirect('/')
         #handle invalid form
         else:
@@ -58,7 +71,6 @@ def DashboardView(request):
     #get current user and all devices associated via map
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
-
     #if the user clicked the editable field and submitted an edit
     if request.POST.get('name') == "modify":
         #pull info out of request
