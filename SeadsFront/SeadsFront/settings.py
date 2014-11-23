@@ -96,3 +96,9 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'seadssystems@gmail.com'
+EMAIL_HOST_PASSWORD = 'seads123'
+EMAIL_PORT = 587

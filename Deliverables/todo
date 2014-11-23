@@ -2,4 +2,15 @@ Some questions to address later:
 - Do we need a billings page? This is a service and I suppose we want to bill people some amount every month instead of them simply buying the product. I don't know what the Seads model is. Will we need to integrate Stripe into the site, for example? Or some automatic billing?
 - I know how to use SendGrid in Ruby on Rails and in ASP, maybe I can integrate it into Django. It is used for sending automatic emails, such as a welcome email when a user registers. Fun to see it actually send! This can be a stretch goal though.
 - Will users of the new design understand that a red background to signifies disconnection and a green background to signifies connection? I think we should do paper prototype testing with people not in Seads before implementing this. I have a small worry they will think it is just a background decoration.. 
-- We need to really launch this feedback phase with real people. It is still early enough to change design decisions. 
+- We need to really launch this feedback phase with real people. It is still early enough to change design decisions.
+- When the user tries to register but does not have all the fields filled in, or some kind of issue has happened - it doesn't seem there is an error message that makes it clear on what has happened. 
+- What is the 13 from?
+if(e.which == 13) {
+					e.preventDefault();
+					validation();
+		 } in dashboard.html
+- shouldn't this be an else if? not an else?
+else{
+					$("#deviceRegisterSubmit").click();
+				} -- in dashboard.html
+- I think we should change the name register when registering a device in Dashboard to something like registerDevice. There is already a view called register, but it is for registering a user, not a device. This can be confusing. 
