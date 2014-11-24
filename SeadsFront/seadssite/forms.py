@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
     username = forms.CharField(required = True)
     email = forms.EmailField(required = True)
     phone = forms.CharField(required = True)
-    cellProvider = forms.EmailField(required = True)
+    cellProvider = forms.CharField(required = True)
     class Meta:
     	model = User
     	fields = ('username', 'first_name','last_name', 'email', 'password')
