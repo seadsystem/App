@@ -9,6 +9,7 @@
 http://stackoverflow.com/questions/7419535/how-to-render-django-form-errors-not-in-a-ul
 {{user_form.errors}}-->
 {% endif %}
+{{user_form.errors}}
 
         <div class="container-fluid">
    <div class="row redtop">
@@ -36,6 +37,7 @@ http://stackoverflow.com/questions/7419535/how-to-render-django-form-errors-not-
                <label for="email_address" class="col-sm-4 col-md-3 col-lg-4 control-label">Email Address:</label>
                <div class="col-sm-8 col-md-9 col-lg-8"><input name="email" type="text" id="email" placeholder="E-mail Address" class="form-control overrideit" value={{email}}></div>
                <p>{{ user_form.email.errors.as_text }}</p>
+               <p>TEST.</p>
             </div>
             <div class="form-group">
                <label for="phone_number" class="col-sm-4 col-md-3 col-lg-4 control-label">Phone Number: </label>
