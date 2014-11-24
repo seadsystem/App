@@ -24,7 +24,13 @@ def help(request, template_name='registration/login.html'):
 def register(request):
     context = RequestContext(request)
     registered = False
-
+    user_save = request.POST.get('username') or ''
+    phone_save = request.POST.get('phone') or ''
+    first_name_save = request.POST.get('first_name') or ''
+    last_name_save = request.POST.get('last_name') or ''
+    email_save = request.POST.get('email') or ''
+    cellProvider_save = request.POST.get('cellProvider') or ''
+    password_save = request.POST.get('password') or ''
     if request.method == 'POST':
         phone = request.POST['phone']
         cellProvider = request.POST['cellProvider']
@@ -56,6 +62,10 @@ def register(request):
         #handle invalid form
         else:
             print user_form.errors, profile_form.errors
+            # If form is not valid, this would re-render inputtest.html with the errors in the form.
+            #render_to_response(request, 'register.html', {'data': 'hello'})
+            #why doesn't this line get called on error?
+            render_to_response('register.html', {'data': 'hello'})
     #when method isn't post
     else:
         user_form = UserForm()
@@ -63,7 +73,7 @@ def register(request):
 
     return render_to_response(
             'register.html',
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
+            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered, 'user': user_save, 'phone': phone_save, 'first_name':first_name_save, 'last_name':last_name_save, 'email':email_save, 'cell_prov':cellProvider_save, 'password':password_save},
             context)
 
 
