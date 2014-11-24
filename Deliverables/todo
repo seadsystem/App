@@ -13,4 +13,10 @@ if(e.which == 13) {
 else{
 					$("#deviceRegisterSubmit").click();
 				} -- in dashboard.html
-- I think we should change the name register when registering a device in Dashboard to something like registerDevice. There is already a view called register, but it is for registering a user, not a device. This can be confusing. 
+- I think we should change the name register when registering a device in Dashboard to something like registerDevice. There is already a view called register, but it is for registering a user, not a device. This can be confusing.
+- why is userprofileform only consisting of these two fields? is there something that is meant to be added? either to this or in terms of functionality with these fields specifically?
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('phone', 'cellProvider')
+ 
