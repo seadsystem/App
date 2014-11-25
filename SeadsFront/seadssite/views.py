@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 
+from django.core.mail import send_mail
+from django.shortcuts import render_to_response as render_to
 
 '''
 load main page as "index"
@@ -16,6 +18,11 @@ load main page as "index"
 class IndexView(TemplateView):
   template_name = 'index.html'
 
+def help(request, template_name='registration/login.html'):
+    # for SMS http://stackoverflow.com/questions/430582/sending-an-sms-to-a-cellphone-using-django
+    email = request.POST['email']
+    send_mail('Login Information', 'This is a test', 'seadssystems@gmail.com', [email])
+    return HttpResponseRedirect('/login')
 
 '''
 registration page controller
@@ -24,6 +31,14 @@ def register(request):
     #is context needed?
     context = RequestContext(request)
     registered = False
+
+    user_save = request.POST.get('username') or ''
+    phone_save = request.POST.get('phone') or ''
+    first_name_save = request.POST.get('first_name') or ''
+    last_name_save = request.POST.get('last_name') or ''
+    email_save = request.POST.get('email') or ''
+    cellProvider_save = request.POST.get('cellProvider') or ''
+    password_save = request.POST.get('password') or ''
 
     if request.method == 'POST':
         phone = request.POST['phone']
@@ -44,18 +59,29 @@ def register(request):
             registered = True
             user = authenticate (username=request.POST['username'], password=request.POST['password'])
             login(request, user)
+
+            #sending a welcome email to the new user
+            #for html/css: http://stackoverflow.com/questions/3237519/sending-html-email-in-django
+            toemail = request.POST['email']
+            send_mail('Welcome!', 'You are now registered with SEADS.', 'seadssystems@gmail.com', [toemail])
+
             return HttpResponseRedirect('/')
         #handle invalid form
         else:
             print user_form.errors, profile_form.errors
-    #when method isn't post, show the user a registration form
+
+            # If form is not valid, this would re-render inputtest.html with the errors in the form.
+            #render_to_response(request, 'register.html', {'data': 'hello'})
+            #why doesn't this line get called on error?
+            render_to_response('register.html', {'data': 'hello'})
+
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
 
     return render_to_response(
             'register.html',
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
+            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered, 'user': user_save, 'phone': phone_save, 'first_name':first_name_save, 'last_name':last_name_save, 'email':email_save, 'cell_prov':cellProvider_save, 'password':password_save},
             context)
 
 
@@ -112,7 +138,6 @@ def DevicesView(request):
     #get current user and all devices associated via map
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
-
     #if the user clicked the editable field and submitted an edit
     if request.POST.get('name') == "modify":
         #pull info out of request

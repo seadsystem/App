@@ -11,7 +11,7 @@ class Devices(models.Model):
 	power = models.BooleanField(default=False)
 
 
-'''
+''' 
 Relational map between a user and a device
 '''
 class Map(models.Model):
