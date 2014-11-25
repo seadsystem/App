@@ -15,6 +15,11 @@ urlpatterns = patterns('',
     	{'next_page': '/'}),
     url(r'^register/$', v.register),
     url(r'^help/$', v.help),
+    url(r'^$', v.reset),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+            v.reset_confirm),
+    url(r'^success/$', v.success),
+
                         )
 
 urlpatterns += staticfiles_urlpatterns()

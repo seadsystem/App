@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import os.path
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -102,3 +104,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'seadssystems@gmail.com'
 EMAIL_HOST_PASSWORD = 'seads123'
 EMAIL_PORT = 587
+
+
+# for password reset
+ADMINS =(('Seads', 'seadssystems@gmail.com'),)
+MANAGERS=ADMINS
