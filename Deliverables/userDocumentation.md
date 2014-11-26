@@ -32,15 +32,15 @@ Use of the SEADS system requires possession of the SEADS energy-monitoring devic
 4. Supported Functionality
 ---	
 1. User Functionalities
-* Easily traversable interface with intuitive user interactions.
-* Back-end data transformations for fast and responsive user experience
-* User registration and login capabilities.
-* Device registration 
-* Device management
-* Device energy monitoring
-* Data visualizations for registered devices
+ * Easily traversable interface with intuitive user interactions.
+ * Back-end data transformations for fast and responsive user experience
+ * User registration and login capabilities.
+ * Device registration 
+ * Device management
+ * Device energy monitoring
+ * Data visualizations for registered devices
 
 2. Developer Functionalities
-* Robust Django framework capable of scaling to future changes and incorporating new design methodologies without requiring extensive code rewrites.
-* Easy communication with back-end server through API.
+ * Robust Django framework capable of scaling to future changes and incorporating new design methodologies without requiring extensive code rewrites.
+ * Easy communication with back-end server through API.
 
