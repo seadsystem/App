@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from seadssite import views as v
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.auth.views import password_reset
+
 
 urlpatterns = patterns('',
 
@@ -11,15 +13,17 @@ urlpatterns = patterns('',
     url(r'^dashboard/',v.DashboardView),
     url(r'^visualization/([0-9]*)/$', v.VisualizationView),
     url(r'^login/$', 'django.contrib.auth.views.login'),
-    (r'^logout/$', 'django.contrib.auth.views.logout',
+    url(r'^logout/$', 'django.contrib.auth.views.logout',
     	{'next_page': '/'}),
     url(r'^register/$', v.register),
     url(r'^help/$', v.help),
-    url(r'^$', v.reset),
-    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-            v.reset_confirm),
-    url(r'^success/$', v.success),
-
+    url(r'^accounts/password/reset/$', 'django.contrib.auth.views.password_reset', 
+        {'post_reset_redirect' : '/accounts/password/reset/done/'}),
+    url(r'^accounts/password/reset/done/$', 'django.contrib.auth.views.password_reset_done'),
+    url(r'^accounts/password/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', 
+        {'post_reset_redirect' : '/accounts/password/done/'}),
+    url(r'^accounts/password/done/$', 'django.contrib.auth.views.password_reset_complete'),
                         )
+
 
 urlpatterns += staticfiles_urlpatterns()

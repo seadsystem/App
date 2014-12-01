@@ -1,10 +1,9 @@
 from .models import Devices, Map
 from django.http import HttpResponseRedirect, HttpResponse
-from seadssite.forms import UserForm, UserProfileForm
+from seadssite.forms import UserForm, UserProfileForm, PasswordResetRequestForm
 from django.template import RequestContext
 from django.shortcuts import render, render_to_response
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.views.generic import View, CreateView
 from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
@@ -12,6 +11,7 @@ from django.contrib.auth.models import User
 
 from django.core.mail import send_mail
 from django.shortcuts import render_to_response as render_to
+
 
 '''
 load main page as "index"
@@ -295,20 +295,4 @@ def VisualizationView(request, device_id):
   return render(request, 'visualization.html', {'data':fake_data, 'api_call':api_string})
 
 
-  '''
-  For Password reset
-  '''
-
-def reset(request):
-    return password_reset(request, template_name='registration/reset.html', 
-        email_template_name='registration/reset_email.html',
-        subject_template_name='registration/reset_subject.txt',
-        post_reset_redirect=reverse('success'))
-
-def reset_confirm(request, uidb64=None, token=None):
-    return password_reset_confirm(request, template_name='registration/reset_confirm.html',
-        uidb36=uidb36, token=token, post_reset_redirect=reverse('success'))
-
-def success(request):
-    return render(request, "registration/success.html")
-
+  
