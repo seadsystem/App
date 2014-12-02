@@ -229,7 +229,6 @@ hit api asking for all data for a device (this gets displayed as soon as the
 def VisualizationView(request, device_id):
     api_string = "http://128.114.59.76:8080/{}".format(device_id)
     api_string += "?type={}".format("W")    
-    #print request
     params = request.GET
     start_time = params.get('start_time', 0)
     end_time = params.get('end_time', int(time.time()))
@@ -243,12 +242,9 @@ def VisualizationView(request, device_id):
 
     s =json.dumps(api_response)
     goodness = json.loads(s)
-    print goodness
 
     if request.is_ajax():
-        a = []
-        a.append(api_response)
         return HttpResponse(json.dumps(goodness), content_type="application/json")
-
+        
     return render(request, 'visualization.html', {'data':api_response, 'api_call':api_string})
 
