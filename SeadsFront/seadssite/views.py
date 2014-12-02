@@ -13,10 +13,12 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 from seadssite.forms import UserForm, UserProfileForm
 from .models import Devices, Map
+from .helpers import *
 
 
 from django.core.mail import send_mail
 from django.shortcuts import render_to_response as render_to
+
 
 '''
 load main page as "index"
@@ -97,154 +99,65 @@ TODO: users can delete eachothers devices I think
 '''
 def DashboardView(request):
     alerts = []
-    #get current user and all devices associated via map
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
 
     #if the user clicked register
     if request.POST.get('register'):
-        #get the new device ID and name from the post
         new_device_id = request.POST.get('device_id')
         new_device_name = request.POST.get('device_name')
-        #check if device is already registered to this user
-        D = Devices.objects.filter(device_id=new_device_id)
-        if Map.objects.filter(user=current_user.id, device=D):
-            alerts.append("The device you've attempted to register has already been registered.")
-            print "Matching device ID"
-        else:
-        #try to create a new device and map it to the user
-            try:
-                D = Devices(device_id=new_device_id, name=new_device_name)
-                D.save()     
-                Map(user = current_user, device = D).save()
-            #catch errors
-            except ValueError:
-                print "Invalid Device ID"
-            except TypeError:
-                print "Invalid Device ID"
+        alert = register_device(new_device_id, new_device_name, current_user)
+        if alert is not None:
+            alerts.append(alert)
 
     #if the user clicked delete
     elif request.POST.get('delete'):
-        #get the device ID from the post
         device_id = request.POST.get('delete')
-        #get respective DB objects
-        D = Devices.objects.filter(device_id = device_id)
-        M = Map.objects.filter(device=D)
-        #if the user owns the device they are trying to delete
-        if Map.objects.filter(user=current_user.id, device=D):
-            #if multiple users own the device
-            if len(M) > 1:
-                #just delete this users map to the device
-                Map.objects.filter(user=current_user.id, device=D).delete()
-            else:
-                #delete the device itself (cascades to map)
-                Devices.objects.filter(device_id = device_id).delete()
-        else:
-            print "you don't own the device you're deleting, or it doesn't exist"
-
+        alert = delete_device(device_id, current_user)
+        if alert is not None:
+            alerts.append(alert)
 
     return render(request, 'dashboard.html', {'maps': user_devices_map, 'alerts':alerts})
 
 
 def DevicesView(request):
     alerts = []
-    #get current user and all devices associated via map
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
+
     #if the user clicked the editable field and submitted an edit
     if request.POST.get('name') == "modify":
-        #pull info out of request
         device_id = request.POST.get('pk')        
-        new_name = request.POST.get('value')        
-        '''
-        a bit of a hack, this assumes every device has a unique ID, will have to be enforced in DB
-        we must also enforce that the name field can't be blank
-        '''
-        #save info to device object
-        D = Devices.objects.filter(device_id = device_id)[0]        
-        D.name = new_name
-        D.save()
-    
+        new_name = request.POST.get('value')
+        modify_device_name(device_id, new_name)       
 
     #if the user clicked register
     elif request.POST.get('register'):
-        #get the new device ID and name from the post
         new_device_id = request.POST.get('device_id')
         new_device_name = request.POST.get('device_name')
-        #check if device is already registered to this user
-        D = Devices.objects.filter(device_id=new_device_id)
-        if Map.objects.filter(user=current_user.id, device=D):
-            alerts.append("The device you've attempted to register has already been registered.")
-            print "Matching device ID"
-        else:
-        #try to create a new device and map it to the user
-            try:
-                D = Devices(device_id=new_device_id, name=new_device_name)
-                D.save()     
-                Map(user = current_user, device = D).save()
-            #catch errors
-            except ValueError:
-                print "Invalid Device ID"
-            except TypeError:
-                print "Invalid Device ID"
-
+        alert = register_device(new_device_id, new_device_name, current_user)
+        if alert is not None:
+            alerts.append(alert)
+        
     #if the user clicked delete
     elif request.POST.get('delete'):
-        #get the device ID from the post
         device_id = request.POST.get('delete')
-        #get respective DB objects
-        D = Devices.objects.filter(device_id = device_id)
-        M = Map.objects.filter(device=D)
-        #if the user owns the device they are trying to delete
-        if Map.objects.filter(user=current_user.id, device=D):
-            #if multiple users own the device
-            if len(M) > 1:
-                #just delete this users map to the device
-                Map.objects.filter(user=current_user.id, device=D).delete()
-            else:
-                #delete the device itself (cascades to map)
-                Devices.objects.filter(device_id = device_id).delete()
-        else:
-            print "you don't own the device you're deleting, or it doesn't exist"
-
-    #if the user clicked modify
-    elif request.POST.get('modify'):
-        #get the device ID from the post
-        '''
-        TODO: Verify that device ID posted for modification is associated with current user
-        this avoids sending a post request to modify random peoples devices
-        '''
-        device_id = request.POST.get('modify')
-        #modify the name in the DB
-        print "modify the name of device: {}".format(device_id)
+        alert = delete_device(device_id, current_user)
+        if alert is not None:
+            alerts.append(alert)
 
     return render(request, 'devices.html', {'maps': user_devices_map, 'alerts':alerts})
 
 
-'''
-workflow:
-hit api asking for all data for a device (this gets displayed as soon as the
-  user hits the page) then give options for different api calls
-'''
 def VisualizationView(request, device_id):
-    api_string = "http://128.114.59.76:8080/{}".format(device_id)
-    api_string += "?type={}".format("W")    
     params = request.GET
     start_time = params.get('start_time', 0)
     end_time = params.get('end_time', int(time.time()))
-    api_string += "&start_time={}&end_time={}".format(start_time, end_time)
-    api_response = requests.get(api_string).text
-    api_response = ast.literal_eval(api_response)
-    for row in api_response:
-        for index, value in enumerate(row):
-            if index > 0 and value not in ['I','W']:
-                row[index] = int(value)
-
-    s =json.dumps(api_response)
-    goodness = json.loads(s)
+    dtype = "W"
+    api_response = get_plug_data(start_time, end_time, dtype, device_id)
 
     if request.is_ajax():
-        return HttpResponse(json.dumps(goodness), content_type="application/json")
-        
-    return render(request, 'visualization.html', {'data':api_response, 'api_call':api_string})
+        return HttpResponse(json.dumps(api_response), content_type="application/json")
+
+    return render(request, 'visualization.html', {'data':api_response})
 
