@@ -4,6 +4,7 @@ import re
 import ast
 import json
 from django.http import HttpResponseRedirect, HttpResponse
+from seadssite.forms import UserForm, UserProfileForm, PasswordResetRequestForm
 from django.template import RequestContext
 from django.shortcuts import render, render_to_response
 from django.contrib.auth import authenticate, login
@@ -161,3 +162,5 @@ def VisualizationView(request, device_id):
 
     return render(request, 'visualization.html', {'data':api_response})
 
+
+  

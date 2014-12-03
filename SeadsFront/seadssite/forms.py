@@ -1,6 +1,7 @@
 from seadssite.models import UserProfile 
 from django.contrib.auth.models import User
 from django import forms
+from django.contrib.auth.views import password_reset
 
 #we should use email validation: http://stackoverflow.com/questions/3217682/checking-validity-of-email-in-django-python
 #http://stackoverflow.com/questions/20192144/creating-custom-user-registration-form-django
@@ -21,3 +22,8 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('phone', 'cellProvider')
+
+
+##test
+class PasswordResetRequestForm(forms.Form):
+    email = forms.CharField(label=("Enter Email"), max_length=254)

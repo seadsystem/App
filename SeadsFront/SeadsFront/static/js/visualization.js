@@ -1,4 +1,5 @@
-var data1 = {{data|safe}};
+function visualization(data1){
+var data1 = data1;
   console.log(data1);
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
@@ -48,3 +49,4 @@ var data1 = {{data|safe}};
       drawChart();
     });
   };   
+}
