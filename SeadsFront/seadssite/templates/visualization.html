@@ -17,27 +17,36 @@
       </div>
     </div>
   </div>
-</div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class='col-sm-6'>
-      <div class="form-group">
-        <div class='input-group date' id='datetimepicker2'>
-          <input type='text' class="form-control" />
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-        </span>
-      </div>
+  <div class='col-sm-6'>
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker2'>
+        <input type='text' class="form-control" />
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+      </span>
     </div>
   </div>
+</div>
+<div class="row">
+  <div class='col-sm-4'>
+  <button onclick="get_datatype('W')" type="button" class="btn btn-default btn-lg">
+  Wattage
+</button></div>
+  <div class='col-sm-4'>
+  <button onclick="get_datatype('I')" type="button" class="btn btn-default btn-lg">
+  Current
+</button></div>
+  <div class='col-sm-4'>
+  <button onclick="get_datatype('V')" type="button" class="btn btn-default btn-lg">
+  Voltage
+</button></div>
+</div>
 </div>
 </div>
 </body>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
   var data1 = {{data|safe}};
-  console.log(data1);
+  data1 = transform_dates(data1);
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
   function drawChart() {
@@ -54,17 +63,17 @@
   }
 
   $(function () {
-    $('#datetimepicker2').datetimepicker({
+    $('#datetimepicker1').datetimepicker({
       pick12HourFormat: true,
-      defaultDate: "11/1/2014",
+      defaultDate: moment(),
       language: 'en'
     }); 
   });
 
   $(function () {
-    $('#datetimepicker1').datetimepicker({
+    $('#datetimepicker2').datetimepicker({
       pick12HourFormat: true,
-      defaultDate: "11/1/2014",
+      defaultDate: moment(),
       language: 'en'
     });
   });
@@ -76,13 +85,24 @@
   $(function () {
     $("#datetimepicker2").on("dp.hide", function (e) {display_new_range()})
   });
+
+  function transform_dates(data1){
+    for (i = 0; i < data1.length; i++){
+      data1[i][0] = moment(data1[i][0]).format('MMM D, h:m:s');
+    }
+    return data1;
+  }
+
+  function get_datatype(s){
+    display_new_range(s)
+  }
   
-  function display_new_range() {
+  function display_new_range(dtype) {
+    dtype = dtype || "W";
     var start_time = $("#datetimepicker1").data('DateTimePicker').date.unix();
     var end_time = $("#datetimepicker2").data('DateTimePicker').date.unix();
-    $.get("", {start_time : start_time,  end_time : end_time}, function(data){
-      console.log(data);
-      data1 = data;
+    $.get("", {start_time : start_time,  end_time : end_time, dtype: dtype}, function(data){
+      data1 = transform_dates(data);
       drawChart();
     });
   };   

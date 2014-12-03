@@ -153,7 +153,7 @@ def VisualizationView(request, device_id):
     params = request.GET
     start_time = params.get('start_time', 0)
     end_time = params.get('end_time', int(time.time()))
-    dtype = "W"
+    dtype = params.get('dtype', 'W')
     api_response = get_plug_data(start_time, end_time, dtype, device_id)
 
     if request.is_ajax():
