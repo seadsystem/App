@@ -15,7 +15,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="Post Title">Post Tile</label>  
   <div class="col-md-4">
-  <input id="Post Title" name="Post Title" type="text" placeholder="title" class="form-control input-md" required="">
+  <input id="Post Title" name="Post Title" type="text" placeholder="Title" class="form-control input-md" required="">
     
   </div>
 </div>
@@ -24,25 +24,25 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="body">Post Body</label>
   <div class="col-md-4">                     
-    <textarea class="form-control input-md" required="" id="body" name="body" type="text">enter body of post</textarea>
+    <textarea class="form-control input-md" required="" id="body" name="body" type="text" placeholder="Enter body of post"></textarea>
   </div>
 </div>
 
-<!-- Text input-->
+<!-- Text input
 <div class="form-group">
   <label class="col-md-4 control-label" for="category">Category</label>  
   <div class="col-md-4">
   <input id="category" name="category" type="text" placeholder="category" class="form-control input-md">
     
   </div>
-</div>
+</div>-->
 
 <!-- Button (Double) -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="button1id">Option</label>
+  <label class="col-md-4 control-label" for="button1id"></label>
   <div class="col-md-8">
-    <button id="button1id" name="button1id" class="btn btn-success">Save</button>
-    <button id="button2id" name="button2id" class="btn btn-danger">Delete</button>
+    <button type="submit" id="button1id" name="button1id" class="btn btn-success">Save</button>
+    <button id="button2id" name="button2id" class="btn btn-danger" onclick="window.location='{%url 'seadssite.views.WeeklyNews'%}'">Cancel</button>
   </div>
 </div>
 

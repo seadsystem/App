@@ -31,6 +31,31 @@
                         <input type="hidden" name="next" value="{{ next }}" />
                      </div>
                   </div>
+                  <div>-
+               </form>
+
+               <form class="form-horizontal" role="form" action="/help/" method="post">
+                     {% csrf_token %}
+                     <!--place forgot login here - to get email-->
+                     <!--use: http://snipplr.com/view/26605/django-send-email-through-gmail/ -->
+                     <!--http://stackoverflow.com/questions/7594348/i-want-a-button-on-my-website-that-will-execute-a-python-script-->
+                  <div class="form-group">
+                     <label class="col-sm-4 col-md-3 col-lg-3 control-label">Lets design UI/UX for this. </label>
+                     <label class="col-sm-4 col-md-3 col-lg-3 control-label">Trouble signing in?</label>
+                     <div class="col-sm-8 col-md-9 col-lg-9">
+                        <input type="email" class="form-control overrideit" name="email" id="email" placeholder="Enter Email">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <div class="col-sm-offset-4 col-sm-9 col-md-offset-4 col-md-9 col-lg-offset-4 col-lg-9">
+                        <button type="submit" name="sendemail" class="btn btn-block coloredsignin">Send Login Info</button>
+                     </div>
+                  </div>
+
+
+                  </div>
+                  </div>
                </form>
             </div>
          </div>

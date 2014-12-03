@@ -10,18 +10,20 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', v.IndexView.as_view()),
+    url(r'^devices/',v.DevicesView),
     url(r'^dashboard/',v.DashboardView),
     url(r'^visualization/([0-9]*)/$', v.VisualizationView),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     (r'^logout/$', 'django.contrib.auth.views.logout',
     	{'next_page': '/'}),
     url(r'^register/$', v.register),
-    url(r'^WeeklyNews/$', v.WeeklyNews),
+     url(r'^WeeklyNews/$', v.WeeklyNews),
     url(r'^seadssite/WeeklyNews/view/(?P<slug>[^\.]+).html','seadssite.views.view_post', name='view_blog_post'),
     url(r'^seadssite/WeeklyNews/category/(?P<slug>[^\.]+).html','seadssite.views.view_category', name='view_blog_category'),
     # url(r'^post/new/$', v.WeeklyNews),
     url(r'^postnew/$', 'seadssite.views.post_new', name="new_post"),
+    url(r'^help/$', v.help),
+                        )
 
-)                    
 
 urlpatterns += staticfiles_urlpatterns()

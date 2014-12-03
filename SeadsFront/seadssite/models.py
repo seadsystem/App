@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import permalink
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
-
+# from crispy_forms.helper import FormHelper
+# from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 '''
 model for SEADS devices like the SEADS plug
 '''
@@ -14,7 +13,7 @@ class Devices(models.Model):
 	power = models.BooleanField(default=False)
 
 
-'''
+''' 
 Relational map between a user and a device
 '''
 class Map(models.Model):

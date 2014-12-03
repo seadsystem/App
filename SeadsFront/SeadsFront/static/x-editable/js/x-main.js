@@ -4,6 +4,6 @@ $(document).ready(function() {
     				placement: "right",
     				type: "text",
     				name: "modify",
-   					url: '../dashboard/',   					
+   					url: '../devices/',   					
 				  });
 });

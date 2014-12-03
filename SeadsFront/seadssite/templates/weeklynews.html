@@ -7,13 +7,16 @@
 	{% if Blog %}
 		<ul>
 		{% for post in Blog %}
-			<li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li> 
+			<li><a href="{{ post.get_absolute_url }}" >{{ post.title }}</a></li> 
 		{% endfor %}
 		</ul>
 	{% else %}
 		<p>There are no posts.</p>
 	{% endif %}
-	<!-- 	{% for post in posts %}
+	<!-- 	
+
+
+	{% for post in posts %}
     		<li><a href="{{post.get_absolute_url}}">{{ post.title }}</a></li>
 		{% endfor %}
 
@@ -33,7 +36,7 @@
 	    	</span>
 		</div> -->
 	
-	<h3>Categories</h3>
+	<!--<h3>Categories</h3>
 	{% if categories %}
 		<ul>
 		{% for category in categories %}
@@ -42,7 +45,7 @@
 		</ul>
 	{% else %}
 		<p>There are no posts.</p>
-	{% endif %}
+	{% endif %}-->
 
 	<button type="button" class="btn btn-default btn-lg" onclick="window.location='{%url 'seadssite.views.post_new'%}'">
 	  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> New Post
