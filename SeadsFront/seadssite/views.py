@@ -118,6 +118,9 @@ def DashboardView(request):
         if alert is not None:
             alerts.append(alert)
 
+    elif request.is_ajax():
+        
+
     return render(request, 'dashboard.html', {'maps': user_devices_map, 'alerts':alerts})
 
 
