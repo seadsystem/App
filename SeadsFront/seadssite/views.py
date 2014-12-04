@@ -102,7 +102,6 @@ def DashboardView(request):
     alerts = []
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
-    #current_power_usage = get_current_power_usage(user_devices_map)
 
     #if the user clicked register
     if request.POST.get('register'):
@@ -120,7 +119,13 @@ def DashboardView(request):
             alerts.append(alert)
 
     connected_devices = get_connected_devices(user_devices_map)
-    return render(request, 'dashboard.html', {'maps': user_devices_map, 'alerts':alerts, 'connected_devices': connected_devices})
+    current_power_usage = get_max_power_usage(5, user_devices_map) #5 min
+    average_power_usage = get_average_power_usage(1440, user_devices_map, 100) # 1 day
+
+    return render(request, 'dashboard.html', {'maps': user_devices_map, 
+        'alerts':alerts, 'connected_devices': connected_devices,
+        'current_power_usage': current_power_usage,
+        'average_power_usage': average_power_usage})
 
 
 def DevicesView(request):
