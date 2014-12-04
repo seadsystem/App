@@ -52,7 +52,7 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable(data1);
     var options = {
-      title: 'API_CALL: {{api_call}}',
+      title: 'MAX: {{max}} AVG: {{avg}}',
       curveType: 'function',
       legend: { position: 'bottom' }
     };
@@ -102,7 +102,10 @@
     var start_time = $("#datetimepicker1").data('DateTimePicker').date.unix();
     var end_time = $("#datetimepicker2").data('DateTimePicker').date.unix();
     $.get("", {start_time : start_time,  end_time : end_time, dtype: dtype}, function(data){
-      data1 = transform_dates(data);
+      console.log("maximum value",data[1].max);
+      console.log("average value",data[1].avg);
+      data1 = transform_dates(data[0]);
+      console.log(data1);
       drawChart();
     });
   };   

@@ -12,12 +12,11 @@
 {% endif %}
 	<div class="container">
 			<div class="row" style="text-align:center;">
-				<div class="col-md-3" style="border-right:3px solid #a4a4a4"><div style="color:black;font-size:25;font-weight:bold;">
-<!--><-->
+				<div class="col-md-3" style="border-right:3px solid #a4a4a4"><div style="color:black;font-size:25;font-weight:bold;">{{connected_devices}}
 				</div><span>Connected Devices</span></div>
 				<div class="col-md-3" style="border-right:3px solid #a4a4a4"><div style="color:black;font-size:25;font-weight:bold;">{{maps|length}}</div><span>Registered Devices</span></div>
-				<div class="col-md-3" style="border-right:3px solid #a4a4a4"><div style="color:black;font-size:25;font-weight:bold;">8.3 kW/h</div><span>Current Power Usage</span></div>
-				<div class="col-md-3"><div style="color:black;font-size:25;font-weight:bold;">7.6 kW/h</div><span>Average Power Usage</span></div>
+				<div class="col-md-3" style="border-right:3px solid #a4a4a4"><div style="color:black;font-size:25;font-weight:bold;">{{current_power_usage}} W</div><span>Current Power Usage</span></div>
+				<div class="col-md-3"><div style="color:black;font-size:25;font-weight:bold;">{{average_power_usage}} W/h</div><span>Average Weekly Power Usage</span></div>
 			</div>
 			{%for map in maps%}
 				{% if forloop.counter0|divisibleby:4 %}

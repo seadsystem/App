@@ -118,7 +118,14 @@ def DashboardView(request):
         if alert is not None:
             alerts.append(alert)
 
-    return render(request, 'dashboard.html', {'maps': user_devices_map, 'alerts':alerts})
+    connected_devices = get_connected_devices(user_devices_map)
+    current_power_usage = get_max_power_usage(5, user_devices_map) #5 min
+    average_power_usage = get_average_power_usage(1440, user_devices_map, 100) # 1 day
+
+    return render(request, 'dashboard.html', {'maps': user_devices_map, 
+        'alerts':alerts, 'connected_devices': connected_devices,
+        'current_power_usage': current_power_usage,
+        'average_power_usage': average_power_usage})
 
 
 def DevicesView(request):
@@ -156,11 +163,14 @@ def VisualizationView(request, device_id):
     end_time = params.get('end_time', int(time.time()))
     dtype = params.get('dtype', 'W')
     api_response = get_plug_data(start_time, end_time, dtype, device_id)
+    dmax = device_max_data(api_response)
+    davg = device_avg_data(api_response)
+
 
     if request.is_ajax():
-        return HttpResponse(json.dumps(api_response), content_type="application/json")
+        return HttpResponse(json.dumps([api_response, {'avg': davg, 'max': dmax}]), content_type="application/json")
 
-    return render(request, 'visualization.html', {'data':api_response})
+    return render(request, 'visualization.html', {'data':api_response, 'max': dmax, 'avg': davg})
 
 
   

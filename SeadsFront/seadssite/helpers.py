@@ -3,24 +3,76 @@ import requests
 from .models import Devices, Map
 import time
 
-def get_plug_data(start_time, end_time, dtype, device_id):
+
+def get_connected_devices(maps):
+    if len(maps) == 0:
+        return 0
+    connected_devices = 0
+    for dmap in maps:
+        if dmap.device.connection:
+            connected_devices += 1
+    return connected_devices
+
+def device_max_data(api_response):
+    if len(api_response) < 2:
+        return 0
+    return max(api_response[1:], key=lambda x:x[1])[1]
+
+def device_avg_data(api_response):
+    if len(api_response) < 2:
+        return 0
+    return sum(map(lambda x:x[1], api_response[1:]))/len(api_response[1:])
+
+def get_max_power_usage(minutes, maps):
+    if len(maps) == 0:
+        return 0
+    current_power_usage = 0
+    now = int(time.time())
+    then = now - (minutes * 60)
+    for dmap in maps:
+        usage = get_plug_data(then, now, "W", dmap.device.device_id)
+        if len(usage) < 2:
+            continue
+        current_power_usage += max(usage[1:], key=lambda x:x[1])[1]
+    return current_power_usage / len(maps)
+
+
+def get_average_power_usage(minutes, maps, samples):
+    if len(maps) == 0:
+        return 0
+    average_power_usage = 0
+    now = int(time.time())
+    then = now - (minutes * 60)
+    hours = minutes / 60
+    samp_hr = samples/hours
+
+    for dmap in maps:
+        usage = get_plug_data(then, now, "W", dmap.device.device_id, samples)
+        if len(usage) < 2:
+            continue
+        average_power_usage += ((sum(map(lambda x:x[1], usage[1:]))/len(usage[1:])) * samp_hr)
+    return int(average_power_usage / len(maps))
+
+
+def get_plug_data(start_time, end_time, dtype, device_id, samples = 100):
     api_string = "http://128.114.59.76:8080/{}".format(device_id)
     api_string += "?type={}".format(dtype)  
     api_string += "&start_time={}&end_time={}".format(start_time, end_time)
-    api_string += "&subset={}".format(100)
+    api_string += "&subset={}".format(samples)
     print "API CALL: {}".format(api_string)
-    start = time.time()
+    #start = time.time()
     api_response = requests.get(api_string).text
-    end = time.time()
-    print "API Took: {}seconds".format(end-start)
-    start = time.time()
+    #end = time.time()
+    #print "API Took: {}seconds".format(end-start)
+    #start = time.time()
     api_response = ast.literal_eval(api_response)
     for row in api_response:
         for index, value in enumerate(row):
             if index > 0 and value not in [dtype]:
                 row[index] = int(value)
-    end = time.time()
-    print "Server Processing Took: {}seconds".format(end-start)
+    #end = time.time()
+    #print "Server Processing Took: {}seconds".format(end-start)
+    #print api_response
     return api_response
 
 
