@@ -1,7 +1,3 @@
-
-
-
-
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
@@ -56,6 +52,7 @@ $( ".col-md-3 .registerDevice" ).mouseover(function() {
 						</div>
 						<div style="float:left;padding:10px;" >
 							<span style="font-size:17px;color:black;">{{map.device.name}}</span>
+							<a class="btn btn-default" href="/visualization/{{map.device.device_id}}" style="position:relative;float:right;">Visualize</a>
 						</div>
 						<span class="glyphicon glyphicon-off" aria-hidden="true" style="font-size:50px;color:#a4a4a4;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></span>
 						<div style="right:20px;;padding:10px;position:absolute;bottom:0px;" >
