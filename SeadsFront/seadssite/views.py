@@ -163,11 +163,14 @@ def VisualizationView(request, device_id):
     end_time = params.get('end_time', int(time.time()))
     dtype = params.get('dtype', 'W')
     api_response = get_plug_data(start_time, end_time, dtype, device_id)
+    dmax = device_max_data(api_response)
+    davg = device_avg_data(api_response)
+
 
     if request.is_ajax():
-        return HttpResponse(json.dumps(api_response), content_type="application/json")
+        return HttpResponse(json.dumps([api_response, {'avg': davg, 'max': dmax}]), content_type="application/json")
 
-    return render(request, 'visualization.html', {'data':api_response})
+    return render(request, 'visualization.html', {'data':api_response, 'max': dmax, 'avg': davg})
 
 
   

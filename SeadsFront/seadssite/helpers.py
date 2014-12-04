@@ -13,6 +13,15 @@ def get_connected_devices(maps):
             connected_devices += 1
     return connected_devices
 
+def device_max_data(api_response):
+    if len(api_response) < 2:
+        return 0
+    return max(api_response[1:], key=lambda x:x[1])[1]
+
+def device_avg_data(api_response):
+    if len(api_response) < 2:
+        return 0
+    return sum(map(lambda x:x[1], api_response[1:]))/len(api_response[1:])
 
 def get_max_power_usage(minutes, maps):
     if len(maps) == 0:
