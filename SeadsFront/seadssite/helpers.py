@@ -10,6 +10,14 @@ def get_connected_devices(maps):
             connected_devices += 1
     return connected_devices
 
+def get_current_power_usage(maps):
+    current_power_usage = 0
+    now = int(time.time())
+    last5 = now - 300 #last 5minutes
+    for dmap in maps:
+        current_power_usage = get_plug_data(now, last5, "W", dmap.device.device_id)
+
+
 
 def get_plug_data(start_time, end_time, dtype, device_id):
     api_string = "http://128.114.59.76:8080/{}".format(device_id)
@@ -29,6 +37,7 @@ def get_plug_data(start_time, end_time, dtype, device_id):
                 row[index] = int(value)
     end = time.time()
     print "Server Processing Took: {}seconds".format(end-start)
+    print api_response
     return api_response
 
 
