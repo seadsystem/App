@@ -39,7 +39,8 @@ $(document).ready(function(){
 	  event.stopPropagation();
 	});
 	$(".deviceBox").click(function(event){
-	  window.location.href = "/devices/";
+		var device_id = $(this).find(".device_id").val();
+	  window.location.href = "/visualization/"+device_id;
 	});
 });
 
