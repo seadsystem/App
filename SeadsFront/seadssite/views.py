@@ -20,6 +20,9 @@ from .helpers import *
 from django.core.mail import send_mail
 from django.shortcuts import render_to_response as render_to
 
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 '''
 load main page as "index"
@@ -72,7 +75,14 @@ def register(request):
             #sending a welcome email to the new user
             #for html/css: http://stackoverflow.com/questions/3237519/sending-html-email-in-django
             toemail = request.POST['email']
-            send_mail('Welcome!', 'You are now registered with SEADS.', 'seadssystems@gmail.com', [toemail])
+            subject, from_email, to = 'Hi', 'seadssystems@gmail.com', [toemail]
+            html_content = render_to_string('base.html', {'varname':'value'})
+            text_content = strip_tags(html_content) 
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [toemail])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+            #toemail = request.POST['email']
+            #send_mail('Welcome!', 'You are now registered with SEADS.', 'seadssystems@gmail.com', [toemail])
 
             return HttpResponseRedirect('/')
         #handle invalid form
