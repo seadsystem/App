@@ -1,6 +1,5 @@
 import ast
 import requests
-from dateutil.parser import *
 from .models import Devices, Map
 import time
 
