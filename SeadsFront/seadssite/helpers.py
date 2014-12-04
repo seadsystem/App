@@ -3,6 +3,14 @@ import requests
 from .models import Devices, Map
 import time
 
+def get_connected_devices(maps):
+    connected_devices = 0
+    for dmap in maps:
+        if dmap.device.connection:
+            connected_devices += 1
+    return connected_devices
+
+
 def get_plug_data(start_time, end_time, dtype, device_id):
     api_string = "http://128.114.59.76:8080/{}".format(device_id)
     api_string += "?type={}".format(dtype)  

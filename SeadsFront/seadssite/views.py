@@ -102,6 +102,7 @@ def DashboardView(request):
     alerts = []
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
+    connected_devices = get_connected_devices(user_devices_map)
 
     #if the user clicked register
     if request.POST.get('register'):
@@ -118,7 +119,8 @@ def DashboardView(request):
         if alert is not None:
             alerts.append(alert)
 
-    return render(request, 'dashboard.html', {'maps': user_devices_map, 'alerts':alerts})
+    return render(request, 'dashboard.html', {'maps': user_devices_map,
+     'alerts':alerts, 'connected_devices': connected_devices})
 
 
 def DevicesView(request):
