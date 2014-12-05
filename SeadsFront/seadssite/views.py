@@ -120,7 +120,7 @@ def DashboardView(request):
 
     connected_devices = get_connected_devices(user_devices_map)
     current_power_usage = get_max_power_usage(5, user_devices_map) #5 min
-    average_power_usage = get_average_power_usage(1440, user_devices_map, 100) # 1 day
+    average_power_usage = get_average_power_usage(1440, user_devices_map, 500) # 1 day
 
     return render(request, 'dashboard.html', {'maps': user_devices_map, 
         'alerts':alerts, 'connected_devices': connected_devices,
@@ -162,7 +162,8 @@ def VisualizationView(request, device_id):
     start_time = params.get('start_time', 0)
     end_time = params.get('end_time', int(time.time()))
     dtype = params.get('dtype', 'W')
-    api_response = get_plug_data(start_time, end_time, dtype, device_id)
+    granularity = params.get('granularity', 100)
+    api_response = get_plug_data(start_time, end_time, dtype, device_id, granularity)
     dmax = device_max_data(api_response)
     davg = device_avg_data(api_response)
 
