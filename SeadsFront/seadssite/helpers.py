@@ -4,11 +4,20 @@ from dateutil.parser import *
 from .models import Devices, Map
 import time
 
+'''
+format for API calls
+'''
+
 def get_plug_data(start_time, end_time, dtype, device_id):
+    #the basic API call will have a base format that includes just a device ID, it builds from that
     api_string = "http://128.114.59.76:8080/{}".format(device_id)
+    #the next optional appendage to the API call is dtype which can be I,V or W (current, volt or watt)
     api_string += "?type={}".format(dtype)  
+    #the next optional appendage to the API call is start and end time
     api_string += "&start_time={}&end_time={}".format(start_time, end_time)
+    #the current strategy is to create subsets by dropping certain points -- to be worked on
     api_string += "&subset={}".format(100)
+    #following is for testing purposes -- seing how long API calls take etc
     print "API CALL: {}".format(api_string)
     start = time.time()
     api_response = requests.get(api_string).text
