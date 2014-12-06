@@ -6,6 +6,10 @@ from django.contrib.auth.views import password_reset
 #we should use email validation: http://stackoverflow.com/questions/3217682/checking-validity-of-email-in-django-python
 #http://stackoverflow.com/questions/20192144/creating-custom-user-registration-form-django
 
+'''
+What the user must contain to be valid
+'''
+#Required feilds for a user -- just used every field from the original SEADS site to maintain what Ali wanted
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     first_name = forms.CharField(required = True)
@@ -14,6 +18,7 @@ class UserForm(forms.ModelForm):
     email = forms.EmailField(required = True)
     phone = forms.CharField(required = True)
     cellProvider = forms.CharField(required = True)
+    #allow fields to be checked by looking at "User"
     class Meta:
     	model = User
     	fields = ('username', 'first_name','last_name', 'email', 'password')
@@ -24,6 +29,6 @@ class UserProfileForm(forms.ModelForm):
         fields = ('phone', 'cellProvider')
 
 
-##test
+#How the native password reset needs to work
 class PasswordResetRequestForm(forms.Form):
     email = forms.CharField(label=("Enter Email"), max_length=254)
