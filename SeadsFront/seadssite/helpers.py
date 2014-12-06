@@ -33,7 +33,10 @@ def get_plug_data(start_time, end_time, dtype, device_id):
     print "Server Processing Took: {}seconds".format(end-start)
     return api_response
 
-
+'''
+actual function to delete a device from "user"
+'''
+#Get the device ID and "device" of the device requested to be deleted
 def delete_device(device_id, current_user):
     D = Devices.objects.filter(device_id = device_id)
     M = Map.objects.filter(device=D)
@@ -44,7 +47,9 @@ def delete_device(device_id, current_user):
         return "you don't own the device you're deleting, or it doesn't exist"
     return None
 
-
+'''
+actual function to register device to specific user
+'''
 def register_device(device_id, device_name, current_user):
     #check if device is already registered to this user
     D = Devices.objects.filter(device_id=device_id)
@@ -57,6 +62,7 @@ def register_device(device_id, device_name, current_user):
             D.save()     
             Map(user = current_user, device = D).save()
         #catch errors
+        #this is where the "alert" comes from in the views
         except ValueError:
             print "Invalid Device ID"
         except TypeError:
