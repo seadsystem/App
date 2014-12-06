@@ -42,10 +42,17 @@ http://stackoverflow.com/questions/7419535/how-to-render-django-form-errors-not-
                <div class="col-sm-8 col-md-9 col-lg-8"><input name="phone" type="text" id="phone" class="form-control overrideit" placeholder="(XXX)XXX-XXXX" value={{phone}}></div>
                <p>{{ user_form.phone.errors.as_text }}</p>
             </div>
-            <div class="form-group">
-               <label for="cell_carrier" class="col-sm-4 col-md-3 col-lg-4 control-label">Cell Provider: </label>
-               <div class="col-sm-8 col-md-9 col-lg-8"><input name="cellProvider" id="cellProvider" class="form-control overrideit" value={{cell_prov}}></input></div>
-               <p>{{ user_form.cellProvider.errors.as_text }}</p>
+             <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                  Cell Carrier
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="cell_carrier">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" value = "Att">AT&T</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" value = "Verizon">Verizon</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" value = "TMobile">T-Mobile</a></li>
+                  <!-- is Sprint still a carrier? -->
+                  <li role="presentation"><a role="menuitem" tabindex="-1" value = "Sprint">Sprint</a></li>
             </div>
             <div class="form-group">
                <label for="password" class="col-sm-4 col-md-3 col-lg-4 control-label">Password: </label>
