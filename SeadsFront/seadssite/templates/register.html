@@ -2,23 +2,23 @@
 {% load staticfiles %}
 
 {% block content %}
-
+<!-- You cannot see register.html if there are form errors -->
 {% if form.errors %}
 <p>Please try again.</p>
 <!--http://stackoverflow.com/questions/2035288/getting-a-list-of-errors-in-a-django-form
 http://stackoverflow.com/questions/7419535/how-to-render-django-form-errors-not-in-a-ul
 {{user_form.errors}}-->
 {% endif %}
-
+<!-- required csrf token -->
         <div class="container-fluid">
    <div class="row redtop">
       <img src="{% static 'images/seadsLogo.png' %}" class="img-responsive center">
       <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
          <form class="form-horizontal" role="form" name="register_user_form" action="/register/" method="post">
                         {% csrf_token %}
-            
+         <!-- each of the required fields: Username, First/Last name, email, phone #, provider and password.-->
             <div class="form-group">
-               <label for="first_name" class="form-field col-sm-4 col-md-3 col-lg-4 control-label">Username:</label>
+               <label for="user_name" class="form-field col-sm-4 col-md-3 col-lg-4 control-label">Username:</label>
                <div class="col-sm-8 col-md-9 col-lg-8"><input class="form-control overrideit" name="username" type="text" id="username" placeholder="Username" value={{user}}></div>
                <p>{{ user_form.username.errors.as_text }}</p>
             </div>
