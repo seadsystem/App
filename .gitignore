@@ -7,6 +7,7 @@
 *.log
 *.sql
 *.sqlite*
+*.sqlite
  
 # OS generated files #
 ######################

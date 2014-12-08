@@ -55,10 +55,20 @@ def get_average_power_usage(minutes, maps, samples):
 
 
 def get_plug_data(start_time, end_time, dtype, device_id, samples = 500):
+
+    #the basic API call will have a base format that includes just a device ID, it builds from that
+
     api_string = "http://128.114.59.76:8080/{}".format(device_id)
+    #the next optional appendage to the API call is dtype which can be I,V or W (current, volt or watt)
     api_string += "?type={}".format(dtype)  
+    #the next optional appendage to the API call is start and end time
     api_string += "&start_time={}&end_time={}".format(start_time, end_time)
     api_string += "&subset={}".format(samples)
+
+    #the current strategy is to create subsets by dropping certain points -- to be worked on
+    #api_string += "&subset={}".format(100)
+    #following is for testing purposes -- seing how long API calls take etc
+
     print "API CALL: {}".format(api_string)
     #start = time.time()
     api_response = requests.get(api_string).text
@@ -75,7 +85,10 @@ def get_plug_data(start_time, end_time, dtype, device_id, samples = 500):
     #print api_response
     return api_response
 
-
+'''
+actual function to delete a device from "user"
+'''
+#Get the device ID and "device" of the device requested to be deleted
 def delete_device(device_id, current_user):
     D = Devices.objects.filter(device_id = device_id)
     M = Map.objects.filter(device=D)
@@ -86,7 +99,9 @@ def delete_device(device_id, current_user):
         return "you don't own the device you're deleting, or it doesn't exist"
     return None
 
-
+'''
+actual function to register device to specific user
+'''
 def register_device(device_id, device_name, current_user):
     #check if device is already registered to this user
     D = Devices.objects.filter(device_id=device_id)
@@ -99,6 +114,7 @@ def register_device(device_id, device_name, current_user):
             D.save()     
             Map(user = current_user, device = D).save()
         #catch errors
+        #this is where the "alert" comes from in the views
         except ValueError:
             print "Invalid Device ID"
         except TypeError:
