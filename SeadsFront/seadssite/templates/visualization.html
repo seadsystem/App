@@ -4,11 +4,45 @@
 <html>
 <head>
 </head>
-<body>
- <div id="chart_div" style="width: 900px; height: 500px;"></div>
+<body style="background-color:white;">
+ 
  <div class="container">
-  <div class="row">
-    <div class='col-sm-6'>
+  <div class="row" style="padding-bottom:0%;">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-4">
+      <div class="btn-group" role="group" aria-label="...">
+        <button onclick="get_datatype('W');setDType('W');" type="button" class="btn btn-default btn">
+        Wattage
+      </button>
+        <button onclick="get_datatype('I');setDType('I');" type="button" class="btn btn-default btn">
+        Current
+      </button>
+        <button onclick="get_datatype('V');setDType('V');" type="button" class="btn btn-default btn">
+        Voltage
+      </button>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <span style="float:right;"><span class="btn btn-default btn"> Granularity</span> &nbsp&nbsp
+      <input id="slider1" type="text" data-slider-min="100" data-slider-max="500" data-slider-step="1" data-slider-value="300"/></span>
+    </div>    
+</div>
+    <div class="row">
+      <div class='col-sm-2'>
+    </div>
+      <div class="col-sm-8">
+        <div id="chart_div" style="position:relative;margin:20 auto;height: 400px;-webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);
+      box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);"></div>
+       <!--<div><h1 id="maximum">Maximum is: {{max}}</h1></div>
+       <div><h1 id="average">Average is: {{avg}}</h1></div> -->
+      </div>
+  </div>
+  <div class="row" style="padding-top:0%;">
+    <div class='col-sm-2'>
+    </div>
+    <div class='col-sm-4'>
       <div class="form-group">
         <div class='input-group date' id='datetimepicker1'>
           <input type='text' class="form-control" />
@@ -17,7 +51,7 @@
       </div>
     </div>
   </div>
-  <div class='col-sm-6'>
+  <div class='col-sm-4'>
     <div class="form-group">
       <div class='input-group date' id='datetimepicker2'>
         <input type='text' class="form-control" />
@@ -25,21 +59,11 @@
       </span>
     </div>
   </div>
+  <div class='col-sm-2'>
+    </div>
 </div>
-<div class="row">
-  <div class='col-sm-4'>
-  <button onclick="get_datatype('W')" type="button" class="btn btn-default btn-lg">
-  Wattage
-</button></div>
-  <div class='col-sm-4'>
-  <button onclick="get_datatype('I')" type="button" class="btn btn-default btn-lg">
-  Current
-</button></div>
-  <div class='col-sm-4'>
-  <button onclick="get_datatype('V')" type="button" class="btn btn-default btn-lg">
-  Voltage
-</button></div>
-</div>
+
+
 </div>
 </div>
 </body>
@@ -52,7 +76,8 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable(data1);
     var options = {
-      title: 'MAX: {{max}} AVG: {{avg}}',
+      title: '',
+      backgroundColor: '#F8F8F8',
       curveType: 'function',
       legend: { position: 'bottom' }
     };
@@ -79,11 +104,11 @@
   });
 
   $(function () {
-    $("#datetimepicker1").on("dp.hide", function (e) {display_new_range()})
+    $("#datetimepicker1").on("dp.hide", function (e) {display_new_range($('#dType').val())})
   });
 
   $(function () {
-    $("#datetimepicker2").on("dp.hide", function (e) {display_new_range()})
+    $("#datetimepicker2").on("dp.hide", function (e) {display_new_range($('#dType').val())})
   });
 
   function transform_dates(data1){
@@ -93,15 +118,41 @@
     return data1;
   }
 
+  $('#slider1').slider({
+  formatter: function(value) {
+    return 'Current value: ' + value;
+      }
+});
+  
+  $('#slider1').on("slideStop", function(e){
+    console.log("stopped");
+    display_new_range($('#dType').val());
+  });
+
+
   function get_datatype(s){
     display_new_range(s)
   }
   
+  function setDType(dtype){
+    $('#dType').val(dtype);
+  };
+
+  function getDType(){
+    var dType = $('#dType').val();
+  }
+
   function display_new_range(dtype) {
+    getDType();
     dtype = dtype || "W";
+    var granularity = $('#slider1').data('slider').getValue()
+    console.log(granularity);
     var start_time = $("#datetimepicker1").data('DateTimePicker').date.unix();
     var end_time = $("#datetimepicker2").data('DateTimePicker').date.unix();
-    $.get("", {start_time : start_time,  end_time : end_time, dtype: dtype}, function(data){
+    $.get("", {start_time : start_time,  end_time : end_time, dtype: dtype,
+      granularity : granularity}, function(data){
+      $("#maximum").text("Maximum is: " + data[1].max);
+      $("#average").text("Average is: " + data[1].avg);
       console.log("maximum value",data[1].max);
       console.log("average value",data[1].avg);
       data1 = transform_dates(data[0]);

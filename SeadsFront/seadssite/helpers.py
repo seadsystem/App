@@ -54,7 +54,7 @@ def get_average_power_usage(minutes, maps, samples):
     return int(average_power_usage / len(maps))
 
 
-def get_plug_data(start_time, end_time, dtype, device_id, samples = 100):
+def get_plug_data(start_time, end_time, dtype, device_id, samples = 500):
     api_string = "http://128.114.59.76:8080/{}".format(device_id)
     api_string += "?type={}".format(dtype)  
     api_string += "&start_time={}&end_time={}".format(start_time, end_time)
