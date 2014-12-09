@@ -80,9 +80,12 @@ def get_plug_data(start_time, end_time, dtype, device_id, samples = 500):
         for index, value in enumerate(row):
             if index > 0 and value not in [dtype]:
                 row[index] = int(value)
+
+    api_head = api_response[:1]
+    api_reverse = api_response[::-1]
+    api_response = api_head + api_reverse[:len(api_reverse)-1]
     #end = time.time()
     #print "Server Processing Took: {}seconds".format(end-start)
-    #print api_response
     return api_response
 
 '''
