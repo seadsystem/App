@@ -55,6 +55,7 @@ def register(request):
 
     #if a user "POST"s, check phone number, provider and user/profile form(models)
     if request.method == 'POST':
+        print "user is about to register"
         phone = request.POST['phone']
         cellProvider = request.POST['cellProvider']
         user_form = UserForm(data=request.POST)
@@ -73,17 +74,19 @@ def register(request):
             registered = True
             user = authenticate (username=request.POST['username'], password=request.POST['password'])
             login(request, user)
-            return HttpResponseRedirect('/')
 
             #sending a welcome email to the new user
             #for html/css: http://stackoverflow.com/questions/3237519/sending-html-email-in-django
+            print "the email is about to be sent"
             toemail = request.POST['email']
             subject, from_email, to = 'Hi', 'seadssystems@gmail.com', [toemail]
-            html_content = render_to_string('base.html', {'varname':'value'})
+            html_content = render_to_string('welcome.html', {'varname':'value', 'first_name':first_name_save})
             text_content = strip_tags(html_content) 
             msg = EmailMultiAlternatives(subject, text_content, from_email, [toemail])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
+
+            return HttpResponseRedirect('/')
 
         #if the forms are invalid show the user which part is invalid 
         else:
