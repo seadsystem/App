@@ -4,15 +4,10 @@ from .models import Devices, Map
 import time
 
 def rreduce(data, dtype):
+    #return data
     if data == []:
         return data
-        
-    if dtype is "W":
-        ffilter = 15
-    elif dtype is "I":
-        ffilter = 10
-    else
-        ffilter = 10
+    ffilter = 15
 
     answer = [["poo"]]
     #save some element
@@ -20,7 +15,7 @@ def rreduce(data, dtype):
     for i, item in enumerate(data):
         #considering whether or not we should adopt them
         #compare start with item
-        if should_adopt(data[start], item):
+        if should_adopt(data[start], item, ffilter):
             if data[i-1] is not answer[len(answer)-1]:
                 answer.append(data[i-1])
             answer.append(item)
@@ -30,6 +25,8 @@ def rreduce(data, dtype):
         start = i
     #print answer
     answer = answer[1:]
+    if len(answer) == 0:
+        return []
     if data[0] is not answer[0]:
         answer.insert(0,data[0])
     if data[len(data)-1] is not answer[len(answer)-1]:
@@ -37,8 +34,8 @@ def rreduce(data, dtype):
     #print answer
     return answer
 
-def should_adopt(start, current):
-    if abs(start[1] - current[1]) > 15:
+def should_adopt(start, current, ffilter):
+    if abs(start[1] - current[1]) > ffilter:
         return True
     return False
 
@@ -136,10 +133,12 @@ def get_plug_data(start_time, end_time, dtype, device_id, samples = 500, limit=F
             if index > 0 and value not in [dtype]:
                 row[index] = int(value)
 
+    print len(api_response)
     api_head = api_response[:1]
     api_reverse = api_response[::-1]
-    api_reduce = rreduce(api_reverse[:len(api_reverse)-1])
+    api_reduce = rreduce(api_reverse[:len(api_reverse)-1], dtype)
     api_response = api_head + api_reduce
+    print len(api_response)
     #end = time.time()
     #print "Server Processing Took: {}seconds".format(end-start)
     return api_response
