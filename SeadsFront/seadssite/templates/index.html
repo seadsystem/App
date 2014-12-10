@@ -2,12 +2,13 @@
 {% load staticfiles %}
 {% block content %}
 
-
+<!-- Index/front page Basically connects to navbar and shows associated block of text. Could easily be consolidated into one About SEADS page instead of having 3 different links, but we left it as is for now.-->
 <div class="container-fluid">
          <div class="row" id="whatis">
             <div class="col-lg-12 col-md-12 col-sm-12">
                <h1>Smart Energy Analytic Disaggregation System</h1>
-               <p>Smart Energy Analytic Disaggregation System (SEADS), sponsored by CITRIS (Center for Information Technology Research in the Interest of Society), provides capabilities not found in other energy monitoring products. The goal of the SEADS is to design and build smart sensors powered by intelligent software capable of collecting and disaggregating information regarding energy usage from individual appliances in real time. SEADS advanced algorithm optimizes the cost of managing microgrids. SEADS aims at  providing an efficient control platform for microgrids based on information available though various sensors.</p>
+               <h4 class="text-center">Collect and Monitor the Energy of all of your Appliances</h4><br/>
+               <p class="text-justify">Smart Energy Analytic Disaggregation System (SEADS), sponsored by CITRIS (Center for Information Technology Research in the Interest of Society), provides capabilities not found in other energy monitoring products. The goal of the SEADS is to design and build smart sensors powered by intelligent software capable of collecting and disaggregating information regarding energy usage from individual appliances in real time. SEADS advanced algorithm optimizes the cost of managing microgrids. SEADS aims at  providing an efficient control platform for microgrids based on information available though various sensors.</p>
             </div>
          </div>
          <div class="row categorysect" style="background-color:#E6E6E6" id="workingon">
@@ -87,7 +88,7 @@
             </div>
          </div>
          <div class="row categorysect" style="background-color:#E6E6E6" id="contributors">
-            <a href=""><h1 class="centered" style="color:#2AB69D">Past Contributors</h1></a>
+            <!--<a href=""><h1 class="centered" style="color:#2AB69D">Past Contributors</h1></a>-->
          </div>
       </div>
 {% endblock %}
