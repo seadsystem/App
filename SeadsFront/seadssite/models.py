@@ -14,7 +14,7 @@ class Devices(models.Model):
 	name = models.CharField(max_length=200, default='DEFAULT VALUE')
 	connection = models.BooleanField(default=True)
 	power = models.BooleanField(default=False)
-
+	apptype = models.CharField(max_length=200, default=0)
 
 ''' 
 Relational map between a user and a device

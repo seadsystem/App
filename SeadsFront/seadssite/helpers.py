@@ -5,7 +5,7 @@ import time
 
 def rreduce(data, dtype):
     #return data
-    if data == []:
+    if len(data) < 5:
         return data
     ffilter = 15
 
@@ -58,15 +58,18 @@ def device_max_data(api_response):
 def get_current_power_map(maps):
     if len(maps) == 0:
         return None
-    #solution
+    solution = []
     for dmap in maps:   
         api_response = get_plug_data(0,0,"W",dmap.device.device_id,limit=True)
-
+        if len(api_response) > 1 and api_response[1]:
+            temp = api_response[1]
+            temp.append(dmap.device.device_id)
+            solution.append(temp)
         #if time for this data is not within 5min return none
         #else return the data value
         #if length of api_response is not 2 return none (this means no data)
-    print api_response
-    return api_response
+    #print api_response
+    return solution
 
 
 def device_avg_data(api_response):

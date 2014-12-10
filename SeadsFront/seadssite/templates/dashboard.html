@@ -12,6 +12,7 @@
 {% endfor %}
 {% endif %}
 	<div class="container">
+		<div class="page-wrap" style="width:100%;">
 			<div class="row" style="text-align:center;">
 
 				<div class="col-md-3" style="border-right:3px solid #a4a4a4"><div style="color:black;font-size:25;font-weight:bold;">{{connected_devices}}
@@ -38,7 +39,7 @@
 								<!-- button for deletion -->
 											{% csrf_token %}
 											<button type="submit" class="btn btn-danger delete" value={{map.device.device_id}} name="delete">
-												<i class="fa fa-trash-o fa-lg"></i> Delete </button>
+												<i class="fa fa-trash-o fa-lg"></i></button>
 											</form>
 						</div>
 						<!-- button to visualize specific device -->
@@ -48,7 +49,7 @@
 						</div>
 						<span class="glyphicon glyphicon-off" aria-hidden="true" style="font-size:50px;color:#a4a4a4;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></span>
 						<div style="right:20px;;padding:10px;position:absolute;bottom:0px;" >
-							<span style="font-size:15px;color:black;">kW/h: <span style="color:#00CD02"><b>1.5</b></span></span>
+							<span style="font-size:15px;color:black;">W: <span style="color:#00CD02"><b id=cur{{map.device.device_id}}>0</b></span></span>
 						</div>
 					</div>
 				</div>
@@ -66,8 +67,10 @@
 							<span class="glyphicon glyphicon-plus" aria-hidden="true" style="font-size:50px;color:#a4a4a4;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" data-toggle="modal" data-target="#register_modal"></span>
 					</div>
 				</div>
+	
 			</div>
 
+	</div>
 	</div>
 
 
@@ -113,14 +116,15 @@
 									<label>Device Name</label>
 									<input type="text" id="device_name" name="device_name" class="form-control" placeholder="Device Name">
 								</div>
-	<!--ADDED DROPDOWN -->
-									<button a href="#" type="button" data-toggle="dropdown" class = "btn btn-primary dropdown-toggle" style="position:relative;top:6px">Appliance Type<span class="caret"></span></button>
-    								<ul class="dropdown-menu">
-        							<li><a href="#">Microwave</a></li>
-							        <li><a href="#">Lamp</a></li>
-							        <li class="divider"></li>
-							        <li><a href="#">New Appliance</a></li>
-								    </ul>
+	<!--ADDED DROPDOWN -->      
+								<div class="form-group">
+									<label>Appliance Type</label>
+									<select name="apptype" id="apptype" class="form-control overrideit" >
+        							<option value="1">Microwave</option>
+							        <option value="2">Lamp</option>
+							        <option value="3">Laptop</option>
+							    </select>
+								</div>
 
 								<button class="btn btn-default" id="deviceRegisterSubmit" type="submit" value=1 name="register" style="display:none;"></button>
 
@@ -136,5 +140,15 @@
 	</div><!-- /.modal-dialog -->
 </div>
 <script src="{% static "js/dashboard.js" %}"></script>
+<script type="text/javascript">
+var data1 = {{power_map|safe}};
+for(i=0; i<data1.length; i++){
+	var field = data1[i][1]
+	if (data1[i][1] < 0){
+		field = 0
+	}
+	$('#cur' + data1[i][2]).html(field);
+}
+</script>
 </div>
 {% endblock %}
