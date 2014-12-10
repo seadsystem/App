@@ -11,7 +11,7 @@ def rreduce(data, dtype):
         ffilter = 15
     elif dtype is "I":
         ffilter = 10
-    else
+    else:
         ffilter = 10
 
     answer = [["poo"]]
