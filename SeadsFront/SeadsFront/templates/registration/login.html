@@ -6,15 +6,15 @@
 
 
 <div class="container-fluid">
-   {% if form.errors %}
-      <p>Your username and password didn't match. Please try again.</p>
-   {% endif %}
          <div class="row">
             <img src="{% static 'images/seadsLogo.png' %}" class="img-responsive center">
             <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
                <form name="login_form" class="form-horizontal" action="{% url 'django.contrib.auth.views.login' %}" method="post">
                	{% csrf_token %}
                   <div class="form-group">
+                     {% if form.errors %}
+                        <p class="text-center">Your username and password didn't match. Please try again.</p>
+                     {% endif %}
                      <label for="username" class="col-sm-4 col-md-3 col-lg-3 control-label">Username: </label>
                      <div class="col-sm-8 col-md-9 col-lg-9">
                         <input type="username" class="form-control overrideit" name="username" id="username" placeholder="Enter Username">

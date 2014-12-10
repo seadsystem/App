@@ -48,7 +48,7 @@
 						</div>
 						<span class="glyphicon glyphicon-off" aria-hidden="true" style="font-size:50px;color:#a4a4a4;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></span>
 						<div style="right:20px;;padding:10px;position:absolute;bottom:0px;" >
-							<span style="font-size:15px;color:black;">kW/h: <span style="color:#00CD02"><b>1.5</b></span></span>
+							<span style="font-size:15px;color:black;">W: <span style="color:#00CD02"><b id=cur{{map.device.device_id}}>0</b></span></span>
 						</div>
 					</div>
 				</div>
@@ -136,5 +136,15 @@
 	</div><!-- /.modal-dialog -->
 </div>
 <script src="{% static "js/dashboard.js" %}"></script>
+<script type="text/javascript">
+var data1 = {{power_map|safe}};
+for(i=0; i<data1.length; i++){
+	var field = data1[i][1]
+	if (data1[i][1] < 0){
+		field = 0
+	}
+	$('#cur' + data1[i][2]).html(field);
+}
+</script>
 </div>
 {% endblock %}
