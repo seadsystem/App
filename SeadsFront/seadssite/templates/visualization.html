@@ -87,11 +87,10 @@
     chart.draw(data, options);
     {% endif %}
   }
-
   $(function () {
     $('#datetimepicker1').datetimepicker({
       pick12HourFormat: true,
-      defaultDate: moment(),
+      defaultDate: moment(data1[1][0]),
       language: 'en'
     }); 
   });

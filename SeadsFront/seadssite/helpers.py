@@ -55,11 +55,16 @@ def device_max_data(api_response):
 
 
 #TODO WORK ON THIS PLEASE I NEED TO
-def device_current_data(device_id, dtype):
-    api_response = get_plug_data(0,0,dtype,device_id,limit=True)
-    #if time for this data is not within 5min return none
-    #else return the data value
-    #if length of api_response is not 2 return none (this means no data)
+def get_current_power_map(maps):
+    if len(maps) == 0:
+        return None
+    #solution
+    for dmap in maps:   
+        api_response = get_plug_data(0,0,"W",dmap.device.device_id,limit=True)
+
+        #if time for this data is not within 5min return none
+        #else return the data value
+        #if length of api_response is not 2 return none (this means no data)
     print api_response
     return api_response
 
