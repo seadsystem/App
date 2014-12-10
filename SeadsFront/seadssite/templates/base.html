@@ -41,11 +41,18 @@
    
    <div class="navbar-collapse collapse navbar-left">
     <ul class="nav navbar-nav">
+<<<<<<< HEAD
+     {% if user.is_authenticated %}
+     <li><a class="navbar-left" href="/dashboard/"><span class="glyphicon glyphicon-dashboard" style="color:white;"></span> <b style="color:white;">DASHBOARD</b></a></li>
+     {% else %}
+     
+=======
       <!-- Do not show Dashboard if user is not logged in -->
      {% if user.is_anonymous %}
      {% else %}
      <li><a class="navbar-left" href="/dashboard/"><span class="glyphicon glyphicon-dashboard" style="color:white;"></span> <b style="color:white;">DASHBOARD</b></a></li>
 
+>>>>>>> 491478318eb7d27f8c2098a06a1c49b6b7abfc3e
      {% endif %}
    </ul>
  </div>
@@ -58,6 +65,18 @@
     <li><a href="#workingon" class="page-scroll" style="color:white;">WHAT WE DO</a></li>
     <li><a href="#present-contributors" class="page-scroll" style="color:white;">THE TEAM</a></li>
     {% endif %}
+<<<<<<< HEAD
+    {% if user.is_authenticated %}
+    <li><a class="" style="color:white;" href="{%url 'django.contrib.auth.views.logout' %}">
+          LOG OUT <span class="glyphicon glyphicon-log-out"></span></a></li>
+        {% else %}
+        
+
+          <li><a class="" href="{%url 'django.contrib.auth.views.login' %}" style="color:white;">
+      LOG IN <span class="glyphicon glyphicon-log-in"></span></a></li>
+      <li><a class="" href="/register/" style="color:white;">
+        REGISTER <span class="glyphicon glyphicon-edit"></span></a></li>
+=======
     <!-- Show Sign In and Register button if user is not signed in -->
     {% if user.is_anonymous %}
 
@@ -69,6 +88,7 @@
         {% else %}
         <li><a class="" style="color:white;" href="{%url 'django.contrib.auth.views.logout' %}">
           LOG OUT <span class="glyphicon glyphicon-log-out"></span></a></li>
+>>>>>>> 491478318eb7d27f8c2098a06a1c49b6b7abfc3e
           {% endif %}
         </ul>
       </div>
