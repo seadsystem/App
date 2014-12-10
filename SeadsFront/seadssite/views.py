@@ -139,14 +139,14 @@ def DashboardView(request):
     connected_devices = get_connected_devices(user_devices_map)
     current_power_usage = get_max_power_usage(5, user_devices_map) #5 min
     average_power_usage = get_average_power_usage(1440, user_devices_map, 500) # 1 day
-    #current_power_map = get_current_power_map(maps)
-
+    current_power_map = get_current_power_map(user_devices_map)
 
 
     return render(request, 'dashboard.html', {'maps': user_devices_map, 
         'alerts':alerts, 'connected_devices': connected_devices,
         'current_power_usage': current_power_usage,
-        'average_power_usage': average_power_usage})
+        'average_power_usage': average_power_usage,
+        'power_map': current_power_map})
 
 
 def DevicesView(request):
