@@ -9,7 +9,7 @@
    {% if form.errors %}
       <p>Your username and password didn't match. Please try again.</p>
    {% endif %}
-         <div class="row redtop">
+         <div class="row">
             <img src="{% static 'images/seadsLogo.png' %}" class="img-responsive center">
             <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
                <form name="login_form" class="form-horizontal" action="{% url 'django.contrib.auth.views.login' %}" method="post">
@@ -31,6 +31,9 @@
                         <button type="submit" value="login" class="btn btn-block coloredsignin">Sign in</button>
                         <input type="hidden" name="next" value="{{ next }}">
                      </div>
+                     <div class="col-sm-offset-4 col-sm-9 col-md-offset-4 col-md-9 col-lg-offset-4 col-lg-9">
+                        <a button type='submit' class='btn btn-block coloredsignin' href='/accounts/password/reset/'> Forgot your Password?</a></button>
+                     </div>
                      
                   </div>
                   <div>-
@@ -43,9 +46,7 @@
 
 
 
-<div class="col-sm-offset-4 col-sm-9 col-md-offset-4 col-md-9 col-lg-offset-4 col-lg-9">
-   <a button type='submit' class='btn btn-block coloredsignin' href='/accounts/password/reset/'> Forgot your Password?</a></button>
-</div>
+
 
 
 
