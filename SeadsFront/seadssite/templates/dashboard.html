@@ -116,14 +116,15 @@
 									<label>Device Name</label>
 									<input type="text" id="device_name" name="device_name" class="form-control" placeholder="Device Name">
 								</div>
-	<!--ADDED DROPDOWN -->
-									<button a href="#" type="button" data-toggle="dropdown" class = "btn btn-primary dropdown-toggle" style="position:relative;top:6px">Appliance Type<span class="caret"></span></button>
-    								<ul class="dropdown-menu">
-        							<li><a href="#">Microwave</a></li>
-							        <li><a href="#">Lamp</a></li>
-							        <li class="divider"></li>
-							        <li><a href="#">New Appliance</a></li>
-								    </ul>
+	<!--ADDED DROPDOWN -->      
+								<div class="form-group">
+									<label>Appliance Type</label>
+									<select name="apptype" id="apptype" class="form-control overrideit" >
+        							<option value="1">Microwave</option>
+							        <option value="2">Lamp</option>
+							        <option value="3">Laptop</option>
+							    </select>
+								</div>
 
 								<button class="btn btn-default" id="deviceRegisterSubmit" type="submit" value=1 name="register" style="display:none;"></button>
 

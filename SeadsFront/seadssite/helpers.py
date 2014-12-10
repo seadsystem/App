@@ -61,7 +61,7 @@ def get_current_power_map(maps):
     solution = []
     for dmap in maps:   
         api_response = get_plug_data(0,0,"W",dmap.device.device_id,limit=True)
-        if api_response[1]:
+        if len(api_response) > 1 and api_response[1]:
             temp = api_response[1]
             temp.append(dmap.device.device_id)
             solution.append(temp)
