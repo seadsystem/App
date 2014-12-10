@@ -111,8 +111,11 @@ def register(request):
 device dashboard page controller
 TODO: users can delete eachothers devices I think
 '''
+
 def DashboardView(request):
     #get needed variables set up, and try to make sure only the users devices are shown
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/?next=%s' % request.path)
     alerts = []
     current_user = request.user    
     user_devices_map = Map.objects.filter(user=current_user.id)
