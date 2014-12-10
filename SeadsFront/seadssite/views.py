@@ -194,6 +194,8 @@ def VisualizationView(request, device_id):
     api_response = get_plug_data(start_time, end_time, dtype, device_id, granularity)
     dmax = device_max_data(api_response)
     davg = device_avg_data(api_response)
+    #NEED TO WORK ON THIS COMMAND AND ADD IT TO DASHBOARD
+    #dcur = device_current_data(device_id,dtype)
 
 
     if request.is_ajax():
