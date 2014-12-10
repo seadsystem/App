@@ -39,9 +39,10 @@
    
    <div class="navbar-collapse collapse navbar-left">
     <ul class="nav navbar-nav">
-     {% if user.is_anonymous %}
-     {% else %}
+     {% if user.is_authenticated %}
      <li><a class="navbar-left" href="/dashboard/"><span class="glyphicon glyphicon-dashboard" style="color:white;"></span> <b style="color:white;">DASHBOARD</b></a></li>
+     {% else %}
+     
      {% endif %}
    </ul>
  </div>
@@ -53,14 +54,16 @@
     <li><a href="#workingon" class="page-scroll" style="color:white;">WHAT WE DO</a></li>
     <li><a href="#present-contributors" class="page-scroll" style="color:white;">THE TEAM</a></li>
     {% endif %}
-    {% if user.is_anonymous %}
-    <li><a class="" href="{%url 'django.contrib.auth.views.login' %}" style="color:white;">
+    {% if user.is_authenticated %}
+    <li><a class="" style="color:white;" href="{%url 'django.contrib.auth.views.logout' %}">
+          LOG OUT <span class="glyphicon glyphicon-log-out"></span></a></li>
+        {% else %}
+        
+
+          <li><a class="" href="{%url 'django.contrib.auth.views.login' %}" style="color:white;">
       LOG IN <span class="glyphicon glyphicon-log-in"></span></a></li>
       <li><a class="" href="/register/" style="color:white;">
         REGISTER <span class="glyphicon glyphicon-edit"></span></a></li>
-        {% else %}
-        <li><a class="" style="color:white;" href="{%url 'django.contrib.auth.views.logout' %}">
-          LOG OUT <span class="glyphicon glyphicon-log-out"></span></a></li>
           {% endif %}
         </ul>
       </div>
