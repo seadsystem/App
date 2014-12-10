@@ -7,7 +7,12 @@ def rreduce(data, dtype):
     #return data
     if len(data) < 5:
         return data
-    ffilter = 15
+
+    ffilter = 40    
+    if dtype == 'I':
+        ffilter = 100
+    if dtype == 'V':
+        ffilter = 1500
 
     answer = [["poo"]]
     #save some element
@@ -108,7 +113,7 @@ def get_average_power_usage(minutes, maps, samples):
     return int(average_power_usage / len(maps))
 
 
-def get_plug_data(start_time, end_time, dtype, device_id, samples = 500, limit=False):
+def get_plug_data(start_time, end_time, dtype, device_id, samples = 3000, limit=False):
 
     #the basic API call will have a base format that includes just a device ID, it builds from that
     if limit:

@@ -195,7 +195,7 @@ def VisualizationView(request, device_id):
     start_time = params.get('start_time', 0)
     end_time = params.get('end_time', int(time.time()))
     dtype = params.get('dtype', 'W')
-    granularity = params.get('granularity', 100)
+    granularity = params.get('granularity', 3000)
     api_response = get_plug_data(start_time, end_time, dtype, device_id, granularity)
     dmax = device_max_data(api_response)
     davg = device_avg_data(api_response)
