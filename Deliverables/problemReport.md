@@ -1,13 +1,6 @@
-SEADS Frontend Problems
-
-
-
-
-
-
- 
- 
-
+===
+SEADS Front End Problem Report
+---
 
 | Bug Title        | How to Trigger Failure           | Location of Fault  | Possible Remedy |
 | ------------- |:-------------:| -----:|-----:|
