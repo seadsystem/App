@@ -10,7 +10,7 @@ Use of the SEADS system requires possession of the SEADS energy-monitoring devic
 
 3. Quick Start User Guide
 ---
-1. Navigate to http://seads.systems in a web browser to gain access to the SEADS web application.
+1. Navigate to http://sead.systems in a web browser to gain access to the SEADS web application.
 
 2. Register an account by clicking on the “register” button in the upper right hand corner. Once on the registration page:
   * Enter basic user information including “first name”, “last name”,  “email address“, phone number”, and “phone carrier”.
