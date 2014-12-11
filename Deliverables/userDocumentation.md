@@ -23,7 +23,7 @@ Use of the SEADS system requires possession of the SEADS energy-monitoring devic
 4. Add new devices by visiting the “dashboard” page, accessible from the top left corner of the site navigation bar. From the “dashboard” page:
   * Current registered devices will be listed in a grid format in which basic kilowatt-hour usage and connection status are viewable.
   * There is an “add device” icon below the device grid. Clicking this icon will bring up the device registration form. 
-  * Devices require a numerical “device id” and a user-friendly “device name”.
+  * Devices require a numerical “device id” (located on your SEADS plug) and a user-friendly “device name”.
 
 5. Removing specific devices can be accomplished by clicking the delete button in the device module, located on the “dashboard” page.
 
